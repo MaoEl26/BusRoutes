@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once "connection.php";
+require_once "./connection.php";
  
 // Define variables and initialize with empty values
 $nombre = $apellido1 = $apellido2 = $password = $correo = $id=  "";
