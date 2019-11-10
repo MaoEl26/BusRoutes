@@ -19,8 +19,6 @@ L.tileLayer('http://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={a
 }).addTo(mymap);
 
 
-
-
 var routeControl = L.Routing.control({
 	waypoints: [
 		L.latLng(9.934739, -84.087502),
@@ -43,7 +41,6 @@ var routeControl = L.Routing.control({
 mymap.on('click', function(e) {        
 	   getCoordinates();    
 });
-
 
 
 async function getCoordinates(){

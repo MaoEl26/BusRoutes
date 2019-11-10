@@ -59,22 +59,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     } else{
                         // Display an error message if password is not valid
                         $password_err = "La contraseña no es válida.";
-                    }
+                        echo "La contraseña no es válida.";
                 }
             } else{
                 // Display an error message if username doesn't exist
                 $username_err = "No se pudo encontrar un usuario con este correo.";
+                echo "No se pudo encontrar un usuario con este correo.";
             }
         } else{
             echo "Algo salió mal. Intentelo de nuevo.";
+            
         }
     }
     
     
 }
+}
 
 // Close connection
-mysqli_close($link);
+    mysqli_close($link);
 
 
 ?>
