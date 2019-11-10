@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/logIn.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+<div>
+	<br>
+	<br>
+	<h3 class="login-heading mb-4" style="text-align: center; ">Registro nuevo usuario</h3>
+   <div class="container" style="width: 500px">
+	<form action="/registerUser" method="POST" >
+        <div class="form-label-group" >
+            <input type="text" name="inputName" min="1" id = "inputName" class="form-control" placeholder="Nombre" autofocus required>
+            <label for="inputName">Nombre</label>
+        </div>
+        <div class="form-label-group" >
+            <input type="text" name="inputLastName1" min="1" id="inputLastName1" class="form-control" placeholder="Apellido 1" required>
+            <label for="inputLastName1">Apellido 1</label>
+        </div>
+        <div class="form-label-group" >
+            <input type="text" name="inputLastName2" min="1" id="inputLastName2" class="form-control" placeholder="Apellido 2" required>
+            <label for="inputLastName2">Apellido 2</label>
+        </div>
+        <!--% if (message){ %>
+            <div class="alert alert-danger">
+              <strong>Atención! </strong><%= message %>.
+            </div>
+          <% } %-->
+        <div class="form-label-group" >
+            <input type="text" name="inputUserName" min="1" id="inputUserName" class="form-control" placeholder="Usuario"  required>
+            <label for="inputUserName">Usuario</label>
+        </div>
+        <div class="form-label-group" >
+            <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Correo" required>
+            <label for="inputEmail">Correo</label>
+        </div>
+        <!--% if (passwordMessage){ %>
+            <div class="alert alert-danger">
+              <strong>Atención! </strong><%= passwordMessage %>.
+            </div>
+          <% } %-->
+        <div class="form-label-group">
+            <input type="password" name="inputPassword" min="8" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+            <label for="inputPassword">Contraseña</label>
+        </div>
+        <div class="form-label-group">
+            <input type="password" name="inputPasswordConfirm" min="8" id="inputPasswordConfirm" class="form-control" placeholder="Confirmación Contraseña" required>
+            <label for="inputPasswordConfirm">Confirmación Contraseña</label>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Registrarse</button>
+        	<div class="text-center">
+            <a class="small" href="./login.html">Ya tienes cuenta?</a></div>
+    </form>
+
+    </div>
+</div>    
+</body>
+</html>
