@@ -20,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_bind_param($stmt, "i", $param_id);
             
             // Set parameters
-            $param_id = trim($_POST["id"]);
+            $param_id = trim($_POST["inputUserName"]);
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -75,18 +75,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     
     // Validate password
-    if(strlen(trim($_POST["password"])) < 6){
+    if(strlen(trim($_POST["inputPassword"])) < 6){
         $password_err = "La contraseña debe tener mínimo 6 caracteres";
     } else{
-        $password = trim($_POST["password"]);
-    
+        $password = trim($_POST["inputPassword"]);
+    }
+
+
     // Validate nombre
-    $nombre = trim($_POST["nombre"]);
+    $nombre = trim($_POST["inputName"]);
 
-    $apellido1 = trim($_POST["apellido1"]);
+    $apellido1 = trim($_POST["inputLastName1"]);
     
-    $apellido2 = trim($_POST["apellido2"]);
-
+    $apellido2 = trim($_POST["inputLastName2"]);
 
     // Check input errors before inserting in database
     if(empty($password_err) && empty($id_err) && empty($correo_err))
@@ -125,6 +126,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Close connection
     mysqli_close($link);
-}
+    }
         // Prepa
+
 ?>

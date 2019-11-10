@@ -61,13 +61,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         $password_err = "La contraseña no es válida.";
                     }
                 }
-            } else{
+                else{
                 // Display an error message if username doesn't exist
                 $username_err = "No se pudo encontrar un usuario con este correo.";
+                }
+            } else{
+                echo "Algo salió mal. Intentelo de nuevo.";
             }
-        } else{
-            echo "Algo salió mal. Intentelo de nuevo.";
-        }
     }
     
     
