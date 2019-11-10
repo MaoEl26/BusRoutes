@@ -3,19 +3,17 @@
 require_once "connection.php";
  
 // Define variables and initialize with empty values
-$nombre = $apellido1 = $apellido2 = $password = $correo = $area = "";
-$username_err = $password_err = $a1_err = $a2_err = $correo_err = $area_err = $id_err = $telefono_error = "";
-$id = $telefono = 0;
+$nombre = $apellido1 = $apellido2 = $password = $correo = $id=  "";
+$password_err = $correo_err = $id_err  = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
+    
     // Validate username
-    if(empty(trim($_POST["id"]))){
+    if(empty(trim($_POST["inputUserName"]))){
         $id_err = "Ingrese un número de identificación";
     } else{
-        // Prepare a select statement
-        $sql = "SELECT idUsuario FROM Usuarios WHERE Identificacion = ?";
+        $sql = "SELECT username FROM Users WHERE username = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -30,9 +28,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_store_result($stmt);
                 
                 if(mysqli_stmt_num_rows($stmt) == 1){
-                    $id_err = "Esta identificación ya se encuentra registrada.";
+                    $id_err = "Este usuario ya se encuentra registrad.";
                 } else{
-                    $id = trim($_POST["id"]);
+                    $id = trim($_POST["inputUserName"]);
                 }
             } else{
                 echo "Algo salió mal. Intentelo de nuevo.";
@@ -44,21 +42,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
         // Validate correo
-        $correo = trim($_POST["correo"]);
-        if(empty(trim($_POST["correo"]))){
+        if(empty(trim($_POST["inputEmail"]))){
             $correo_err = "El campo no puede estar vacío";
-        }elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-            $correo_err = "Formato de correo inválido";
         }else{
             // Prepare a select statement
-            $sql = "SELECT idUsuario FROM Usuarios WHERE Correo = ?";
+            $sql = "SELECT username FROM Users WHERE email = ?";
             
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
                 mysqli_stmt_bind_param($stmt, "s", $param_correo);
                 
                 // Set parameters
-                $param_correo = trim($_POST["correo"]);
+                $param_correo = trim($_POST["inputEmail"]);
                 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
@@ -68,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     if(mysqli_stmt_num_rows($stmt) == 1){
                         $correo_err = "Este correo ya se encuentra registrado";
                     } else{
-                        $correo = trim($_POST["correo"]);
+                        $correo = trim($_POST["inputEmail"]);
                     }
                 } else{
                     echo "Algo salió mal. Intentelo de nuevo.";
@@ -80,61 +75,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     
     // Validate password
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Ingrese una contraseña.";     
-    } elseif(strlen(trim($_POST["password"])) < 6){
+    if(strlen(trim($_POST["password"])) < 6){
         $password_err = "La contraseña debe tener mínimo 6 caracteres";
     } else{
         $password = trim($_POST["password"]);
-    }
     
     // Validate nombre
-    if(empty(trim($_POST["nombre"]))){
-        $username_err= "Debe llenar el espacio.";     
-    } else{
-        $nombre = trim($_POST["nombre"]);
-    }
+    $nombre = trim($_POST["nombre"]);
+
+    $apellido1 = trim($_POST["apellido1"]);
     
-    // Validate Apellido1
-    if(empty(trim($_POST["apellido1"]))){
-        $a1_err= "Debe llenar el espacio.";     
-    } else{
-        $apellido1 = trim($_POST["apellido1"]);
-    }
-
-     // Validate Apellido2
-     if(empty(trim($_POST["apellido2"]))){
-        $a2_err= "Debe llenar el espacio.";     
-    } else{
-        $apellido2 = trim($_POST["apellido2"]);
-    }
-
-    // Validate Area
-    if(empty(trim($_POST["codigoArea"]))){
-        $area_err= "Debe llenar el espacio.";     
-    } else{
-        $area = trim($_POST["codigoArea"]);
-    }
-
-    // Validate Telefono
-    if(empty(trim($_POST["numTelefono"]))){
-        $telefono_error= "Debe llenar el espacio.";     
-    } else{
-        $telefono = trim($_POST["numTelefono"]);
-    }
-
+    $apellido2 = trim($_POST["apellido2"]);
 
 
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($correo_err) && empty($id_err) && empty($a1_err) && empty($a2_err) && empty($area_err) && empty($telefono_error))
+    if(empty($password_err) && empty($id_err) && empty($correo_err))
     {
         
         // Prepare an insert statement
-        $sql = "CALL insertarUsuario(?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO `RXWuaQvtL6`.`Users`(`username`, `name`, `lastname1`, `lastname2`, `email`, `password`,`Active`) VALUES (?,?,?,?,?,?,?)";
+        $active = 1;
+        //$sql = "CALL insertarUsuario(?,?,?,?,?,?,?,?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "issssssi", $param_id, $param_nombre, $param_a1 , $param_a2, $param_pass , $param_correo , $param_area , $param_telefono);
+            mysqli_stmt_bind_param($stmt, "ssssssi", $param_id, $param_nombre, $param_a1 , $param_a2, $param_pass , $param_correo , $param_area , $param_telefono);
             
             // Set parameters
             $param_id = $id;
@@ -143,13 +108,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_a2 = $apellido2;
             $param_pass = $password;
             $param_correo = $correo;
-            $param_area = $area;
-            $param_telefono = $telefono;
+            $param_telefono = $active;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("location: login.php");
+                header("location: ../views/login.html");
             } else{
                 echo "Algo salió mal. Intentelo de nuevo.";
             }
@@ -162,4 +126,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Close connection
     mysqli_close($link);
 }
+        // Prepa
 ?>
