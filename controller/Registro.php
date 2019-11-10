@@ -7,7 +7,7 @@ $nombre = $apellido1 = $apellido2 = $password = $correo = $id=  "";
 $password_err = $correo_err = $id_err  = "";
  
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Validate username
     if(empty(trim($_POST["inputUserName"]))){
@@ -79,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password_err = "La contraseña debe tener mínimo 6 caracteres";
     } else{
         $password = trim($_POST["password"]);
-    
+    }
     // Validate nombre
     $nombre = trim($_POST["nombre"]);
 
@@ -87,7 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     $apellido2 = trim($_POST["apellido2"]);
 
-
+    
     // Check input errors before inserting in database
     if(empty($password_err) && empty($id_err) && empty($correo_err))
     {
@@ -122,9 +122,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Close statement
         mysqli_stmt_close($stmt);
     }
-    
     // Close connection
     mysqli_close($link);
-}
-        // Prepa
+
+ 
+    // Prepa
 ?>

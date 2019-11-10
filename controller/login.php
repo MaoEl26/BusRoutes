@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: ./main.html");
+    header('Location: ../views/main.html');
     exit;
 }
  
@@ -53,8 +53,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         // Close statement
                         mysqli_stmt_close($stmt);
                         // Redirect user to welcome page
-                        header("location: ./main.php");
-
+                        header('Location: ../views/main.html');
+ 
 
                     } else{
                         // Display an error message if password is not valid
@@ -75,5 +75,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 // Close connection
 mysqli_close($link);
-}
+
+
 ?>
