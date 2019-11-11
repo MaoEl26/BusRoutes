@@ -39,14 +39,25 @@ var routeControl = L.Routing.control({
 }
 
 mymap.on('click', function(e) {        
-	   getCoordinates();    
+	   getCoordinatesRegister();    
 });
 
 
-async function getCoordinates(){
+function getCoordinatesRegister(){
 	var routeArray = new Array();
 	routeArray = routeControl.getWaypoints();
-	return routeArray;
+	
+	$.ajax({
+		type: "POST",
+		url: "../../controller/registroroute.php",
+		data: routeArray,
+		success: function() {
+			alert("datos exitosos");
+		}
+	  });
+
+		
+	
 }
 
 
