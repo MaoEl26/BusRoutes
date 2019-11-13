@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
   crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
 
   <title></title>
 
@@ -22,11 +19,9 @@
 
 
 <body>
-
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
     integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
     crossorigin=""></script>
-  
     <div id="nav-placeholder">
 
       </div>
@@ -39,15 +34,21 @@
  <div>
     <br>
     <br>
-    <h3 class="login-heading mb-4" style="text-align: center; ">Agregar Ruta</h3>
+    <h3 class="login-heading mb-4" style="text-align: center; ">Modificar Ruta</h3>
      <div class="container" style="width: 500px">
-    <form action="/registerRoute" method="POST" >
+    <form action="/modifyRoute" method="POST" >
           <div class="form-group" >
-              <label for="inputCompany">Seleccione la empresa a la que pertenece</label>
-              <select name="inputCompany" id="inputCompany" class="form-control"></select>
+              <label for="inputCompany">Seleccione la empresa</label>
+              <select name="inputCompany" id="inputCompany" class="form-control">
+              </select>
+          </div>
+          <div class="form-group" >
+              <label for="inputRoute">Seleccione la ruta:</label>
+              <select name="inputRoute" id="inputRoute" class="form-control">
+              </select>
           </div>
           <div class="form-label-group" >
-              <input type="text" name="inputNumRuta" id = "inputNumRuta" class="form-control" placeholder="Número Ruta" autofocus required>
+              <input type="text" name="inputNumRuta" id = "inputNumRuta" class="form-control" placeholder="Numero Ruta" >
               <label for="inputNumRuta">Número Ruta</label>
           </div>
           <div class="form-label-group" >
@@ -84,19 +85,17 @@
           <div>
                 <h4 class="login-heading mb-2" style="text-align: center;">Ruta del Viaje</h4>
                 <div class="form-label-group" >
-                  <div id="mapid" class="container-fluid" style="height: 200px;  ">
+                    <label for="inputDireccionMarcador">Mapa con Ruta</label>
+                    <div id="mapid" class="container-fluid" style="height: 200px;  ">
                 
-                  </div>  
+                    </div>
 
                 </div>
-                
           </div>
-          <br>
           <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Guardar</button>
               
       </form>
   
-      
       </div>
   </div>
   <script src="../../public/map.js"></script>

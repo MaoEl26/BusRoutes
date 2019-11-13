@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header('location: ../views/main.html');
+    header('Location: ../views/main.html');
     exit;
 }
  
@@ -53,27 +53,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         // Close statement
                         mysqli_stmt_close($stmt);
                         // Redirect user to welcome page
-                        header('location: ../views/main.html');
-
+                        header('Location: ../views/main.html');
+ 
 
                     } else{
                         // Display an error message if password is not valid
                         $password_err = "La contraseña no es válida.";
-                    }
+                        echo "La contraseña no es válida.";
                 }
                 else{
                 // Display an error message if username doesn't exist
                 $username_err = "No se pudo encontrar un usuario con este correo.";
-                }
-            } else{
-                echo "Algo salió mal. Intentelo de nuevo.";
+                echo "No se pudo encontrar un usuario con este correo.";
             }
+        } else{
+            echo "Algo salió mal. Intentelo de nuevo.";
+            
+        }
     }
     
     
 }
+}
 
 // Close connection
-mysqli_close($link);
-}
+    mysqli_close($link);
+
+
 ?>

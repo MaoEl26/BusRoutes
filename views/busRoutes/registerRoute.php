@@ -7,52 +7,53 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-  crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 
   <title></title>
 
 </head>
 
-
-
-<body>
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
+<body>  
     <div id="nav-placeholder">
-
-      </div>
-
+    </div>
+  <?php include_once '../../controller/modifyCompany.php'; 
+   $companies = getCompanies();
+   //var_dump($companies);
+  ?>
  <div class="container" style="background-color: rgb(100,100,100); ">
- 	
-
-
  </div>
  <div>
     <br>
     <br>
-    <h3 class="login-heading mb-4" style="text-align: center; ">Modificar Ruta</h3>
+    <h3 class="login-heading mb-4" style="text-align: center; ">Agregar Ruta</h3>
      <div class="container" style="width: 500px">
-    <form action="/modifyRoute" method="POST" >
+     <?php
+        if(!empty($ruta_error)){
+          echo '<div class="alert alert-danger"> <strong>Atención! </strong>'.$ruta_error."</div>";
+        }
+     ?>
+    <form  method="POST" action="../../controller/registroRoute.php">
           <div class="form-group" >
-              <label for="inputCompany">Seleccione la empresa</label>
+              <label for="inputCompany">Seleccione la empresa a la que pertenece</label>
               <select name="inputCompany" id="inputCompany" class="form-control">
-              </select>
-          </div>
-          <div class="form-group" >
-              <label for="inputRoute">Seleccione la ruta:</label>
-              <select name="inputRoute" id="inputRoute" class="form-control">
+              <?php 
+                foreach ($companies as $company) {
+                 echo '<option value="'. $company[0].'" onclick="">'. $company[1] ."</option>";
+                }
+              ?>
               </select>
           </div>
           <div class="form-label-group" >
-              <input type="text" name="inputNumRuta" id = "inputNumRuta" class="form-control" placeholder="Numero Ruta" >
+              <input type="text" name="inputNumRuta" id = "inputNumRuta" class="form-control" placeholder="Número Ruta" autofocus required>
               <label for="inputNumRuta">Número Ruta</label>
           </div>
           <div class="form-label-group" >
@@ -83,23 +84,25 @@
                 <label for="inputDuracion">Duración del viaje</label>
         </div>
         <div class="form-label-group">
-                <input type="checkbox" name="inputDiscapacidad" id="inputDiscapacidad" class="" placeholder="Discapacidad" required>
+                <input type="checkbox" name="inputDiscapacidad" id="inputDiscapacidad" class="" placeholder="Discapacidad">
                 <label for="inputDiscapacidad" class="login-heading mb-2"><h6>Posee transporte para personas con Discapacidad </h6></label>
         </div>
           <div>
                 <h4 class="login-heading mb-2" style="text-align: center;">Ruta del Viaje</h4>
                 <div class="form-label-group" >
-                    <label for="inputDireccionMarcador">Mapa con Ruta</label>
-                    <div id="mapid" class="container-fluid" style="height: 200px;  ">
+                  <div id="mapid" class="container-fluid" style="height: 200px;  ">
                 
-                    </div>
+                  </div>  
 
                 </div>
+                
           </div>
-          <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Guardar</button>
+          <br>
+          <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" onclick="getCoordinatesRegister()" >Guardar</button>
               
       </form>
   
+      
       </div>
   </div>
   <script src="../../public/map.js"></script>
