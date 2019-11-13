@@ -28,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_store_result($stmt);
                 
                 if(mysqli_stmt_num_rows($stmt) == 1){
-                    $id_err = "Este usuario ya se encuentra registrad.";
+                    $id_err = "Este usuario ya se encuentra registrado.";
                 } else{
                     $id = trim($_POST["inputUserName"]);
                 }

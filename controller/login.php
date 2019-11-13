@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: ./main.html");
+    header('location: ../views/main.html');
     exit;
 }
  
@@ -53,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         // Close statement
                         mysqli_stmt_close($stmt);
                         // Redirect user to welcome page
-                        header("location: ./main.php");
+                        header('location: ../views/main.html');
 
 
                     } else{
