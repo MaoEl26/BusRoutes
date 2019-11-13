@@ -17,7 +17,7 @@ if (isset($_POST['getCompanyInfo'])) {
         /* Attempt to connect to MySQL database */
         $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-        $companyInfo = getData(1, $link);        
+        $companyInfo = getData($_POST['company'], $link);        
         echo json_encode($companyInfo);
     }
 }

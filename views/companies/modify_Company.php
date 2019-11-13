@@ -24,11 +24,11 @@
   </div>
   <div class="container" style="background-color: rgb(100,100,100); ">
 
-    <?php     
+    <?php
     //require_once "../../controller/connection.php";
-    include_once '../../controller/modifyCompany.php';        
+    include_once '../../controller/modifyCompany.php';
     $companies = getCompanies();
-    var_dump($companies);
+    //var_dump($companies);
     //$companyInfo = getData(1, $link);    
     //var_dump($companyInfo);
     ?>
@@ -91,7 +91,7 @@
           <h4 class="login-heading mb-2" style="text-align: center;">Horario de Atención</h4>
           <div class="form-group">
             <label for="inputDiasSemana">Seleccione los días</label>
-            <select name="inputDiasSemana[]" class="form-control" multiple>
+            <select name="inputDiasSemana[]" id="inputDiasSemana" class="form-control" multiple>
               <option>Lunes</option>
               <option>Martes</option>
               <option>Miercoles</option>
@@ -127,9 +127,12 @@
   <script>
     $(function() {
       $("#nav-placeholder").load("../../public/nav.html");
-    });    
+    });
 
-    $('#inputCompany').on('change', function(e) {          
+    $('#inputCompany').on('change', function(e) {
+      var select = document.getElementById('inputCompany');
+      var selectedOption = this.options[select.selectedIndex];
+      //alert(selectedOption.value);               
       e.preventDefault // prevent form submission
       $.ajax({
         url: '../../controller/modifyCompany.php',
@@ -137,56 +140,32 @@
         dataType: 'json',
         data: {
           getCompanyInfo: "true",
-          company: 1
+          company: selectedOption.value
         },
         success: function(result) {
-                              
+
           document.getElementById("inputName").value = result[1];
           document.getElementById("inputNumTelefono").value = result[2];
           document.getElementById("inputZonaOrigen").value = result[3];
-          document.getElementById("inputZonaDestino").value = result[4];          
+          document.getElementById("inputZonaDestino").value = result[4];
           document.getElementById("inputEmail").value = result[5];
           document.getElementById("inputContactoAnomalias").value = result[6];
           document.getElementById("inputDireccionSenna").value = result[7];
+
+          var arrayDias = result[10].split(",");
+
+          for (var i = 0; i < arrayDias.length; i++){            
+            document.getElementById('inputDiasSemana').getElementsByTagName('option')[i].selected = 'selected'
+          }          
+          
           document.getElementById("inputHoraApertura").value = result[11];
           document.getElementById("inputHoraCierre").value = result[12];
-                    
-          // array_push($temporal, $row['idCompany']);
-          //   array_push($temporal, $row['name']);
-          //   array_push($temporal, $row['phone']);
-          //   array_push($temporal, $row['sourcezone']);
-          //   array_push($temporal, $row['destinyzone']);
-          //   array_push($temporal, $row['email']);
-          //   array_push($temporal, $row['anomalycontact']);
-          //   array_push($temporal, $row['addresssigns']);
-          //   array_push($temporal, $row['latitude']);
-          //   array_push($temporal, $row['longitude']);
-          //   array_push($temporal, $row['daysattention']);
-          //   array_push($temporal, $row['openingtime']);
-          //   array_push($temporal, $row['closingtime']);
         },
         error: function(request, status, error) {
           alert('Ha surgido un error procesando su petición.');
         }
       });
     });
-
-
-    // function myAjax(companyID) {
-    //   //alert(companyID);
-    //   $.ajax({
-    //     url: 'http://localhost/BusRoutes/controller/modifyCompany.php', 
-    //     type: "post", 
-    //     dataType: 'json',
-    //     data: {
-    //       getCompanyInfo: "true",
-    //       company: companyID
-    //     }
-    //     success: function(result) {
-    //       console.log(result.abc);
-    //     }
-    //   });
-    // }
   </script>
 </body>
 

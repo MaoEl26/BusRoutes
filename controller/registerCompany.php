@@ -5,7 +5,7 @@ require_once "./connection.php";
 // Define variables and initialize with empty values
 $nombre = $numTelefono = $origen = $destino = $correo = $numTelefono = $direccion = $dias = "";
 $latitude = $longitud = $apertura = $cierre = $anomalias = "";
-$password_err = $correo_err = $id_err  = "";
+$correo_err = $id_err  = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -77,7 +77,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $latitude = trim($_POST["inputDireccionSenna"]);
     $longitud = trim($_POST["inputDireccionSenna"]);
 
-    $dias = "lunes";
+    $dias = $_POST["inputDiasSemana"];
+    $stringDias = implode(',', $dias); // Convierte el array de días a string separado por comas.
+    //var_dump($stringDias);
     
     $apertura = trim($_POST["inputHoraApertura"]);
     $cierre = trim($_POST["inputHoraCierre"]);
@@ -85,20 +87,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $anomalias = trim($_POST["inputContactoAnomalias"]);
 
     
+    $id_err = "";
+    $correo_err  = "";
+
     // Check input errors before inserting in database
-    if(empty($password_err) && empty($id_err) && empty($correo_err))
+    if(empty($id_err) && empty($correo_err))
     {
         
         // Prepare an insert statement
-        $sql = "INSERT INTO `RXWuaQvtL6`.`Company`(`idCompany`,`name`, `phone`, `sourcezone`, `destinyzone`, `email`,`anomalycontact`,`addresssigns`,`latitude`,`longitude`,`daysattention`,`openingtime`,`closingtime`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO `RXWuaQvtL6`.`Company`(`name`, `phone`, `sourcezone`, `destinyzone`, `email`,`anomalycontact`,`addresssigns`,`latitude`,`longitude`,`daysattention`,`openingtime`,`closingtime`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
-            echo "entre malparido";
+           
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ssssssssssss", $param_name,$param_phone,$param_sourcezone,$param_destinyzone,$param_email,$param_anomalycontact,$param_addresssigns,$param_latitude,$param_longitude,$param_daysattention,$param_openingtime,$param_closingtime);
             
             // Set parameters
-            //$param_id = 2;
+            //$param_id = 3;            
             $param_name = $nombre;
             $param_phone = $numTelefono;
             $param_sourcezone = $origen;
@@ -108,14 +113,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_addresssigns = $direccion;
             $param_latitude = $direccion;
             $param_longitude = $direccion;
-            $param_daysattention = $dias;
+            $param_daysattention = $stringDias;
             $param_openingtime = $apertura;
             $param_closingtime = $cierre;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("location: ../views/companies/registerCompany.html");
+                header("Location: ../views/companies/registerCompany.html");
             } else{
                 echo "Algo salió mal. Intentelo de nuevo.";
             }
