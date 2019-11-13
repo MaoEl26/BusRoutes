@@ -14,7 +14,6 @@
   <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
     integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
     crossorigin=""></script>
-
   <title></title>
 
 </head>
@@ -26,11 +25,12 @@
     <div id="nav-placeholder">
 
       </div>
-
  <div class="container" style="background-color: rgb(100,100,100); ">
  	
-
-
+  <?php include_once '../../controller/modifyCompany.php'; 
+   $companies = getCompanies();
+   //var_dump($companies);
+  ?>
  </div>
  <div>
     <br>
@@ -41,6 +41,11 @@
         <div class="form-group" >
                 <label for="inputCompany">Seleccione la empresa</label>
                 <select name="inputCompany" id="inputCompany" class="form-control">
+                <?php 
+                foreach ($companies as $company) {
+                 echo '<option value="'. $company[0].'" onclick="">'. $company[1] ."</option>";
+                }
+                ?>
                 </select>
         </div>
           <div class="form-label-group" >
@@ -120,10 +125,5 @@
       $("#nav-placeholder").load("../../public/nav.html");
     });
     </script>
-  
-    
-  
-  
-
 </body>
 </html>
