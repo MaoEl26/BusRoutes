@@ -22,30 +22,35 @@
 
 </head>
 
-
-
-<body>
-
-    
-  
+<body>  
     <div id="nav-placeholder">
-
-      </div>
-
+    </div>
+  <?php include_once '../../controller/modifyCompany.php'; 
+   $companies = getCompanies();
+   //var_dump($companies);
+  ?>
  <div class="container" style="background-color: rgb(100,100,100); ">
- 	
-
-
  </div>
  <div>
     <br>
     <br>
     <h3 class="login-heading mb-4" style="text-align: center; ">Agregar Ruta</h3>
      <div class="container" style="width: 500px">
-    <form  method="POST" action="../../controller/registroroute.php">
+     <?php
+        if(!empty($ruta_error)){
+          echo '<div class="alert alert-danger"> <strong>Atención! </strong>'.$ruta_error."</div>";
+        }
+     ?>
+    <form  method="POST" action="../../controller/registroRoute.php">
           <div class="form-group" >
               <label for="inputCompany">Seleccione la empresa a la que pertenece</label>
-              <select name="inputCompany" id="inputCompany" class="form-control"></select>
+              <select name="inputCompany" id="inputCompany" class="form-control">
+              <?php 
+                foreach ($companies as $company) {
+                 echo '<option value="'. $company[0].'" onclick="">'. $company[1] ."</option>";
+                }
+              ?>
+              </select>
           </div>
           <div class="form-label-group" >
               <input type="text" name="inputNumRuta" id = "inputNumRuta" class="form-control" placeholder="Número Ruta" autofocus required>
