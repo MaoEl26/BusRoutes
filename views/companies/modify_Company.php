@@ -88,8 +88,8 @@
           <div class="form-label-group">
             <input type="text" name="inputDireccionSenna" id="inputDireccionSenna" class="form-control" placeholder="Dirección" required>
             <label for="inputDireccionSenna">Dirección exacta</label>
-            <input type="text" name="lat" id="lat" class="form-control" readonly>
-            <input type="text" name="lng" id="lng" class="form-control" readonly>
+            <input type="hidden" name="lat" id="lat" class="form-control" readonly>
+            <input type="hidden" name="lng" id="lng" class="form-control" readonly>
           </div>
         </div>
         <div>
@@ -161,7 +161,8 @@
 
           for (var i = 0; i < arrayDias.length; i++){            
             document.getElementById('inputDiasSemana').getElementsByTagName('option')[i].selected = 'selected'
-          }          
+          }  
+          showPoints(result[8],result[9]);        
           
           document.getElementById("inputHoraApertura").value = result[11];
           document.getElementById("inputHoraCierre").value = result[12];
