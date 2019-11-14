@@ -12,14 +12,13 @@ if (isset($_POST['getCompanyInfo'])) {
         /* Attempt to connect to MySQL database */
         $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-        $routeInfo = getData($_POST['company'], $link);
-
+        $routeInfo = getRoutes($_POST['company'], $link);        
+        
         echo json_encode($routeInfo);
     }
-    
 }
 
-function getData($id, $link)
+function getRoutes($id, $link)
 {
     //require_once "../../controller/connection.php";
     $sql = "SELECT numroute,description,ticketCost,durationtime,
@@ -28,7 +27,7 @@ function getData($id, $link)
     $temporal = array();
     if ($result = mysqli_query($link, $sql)) {
         while ($row = mysqli_fetch_assoc($result)) {
-            array_push($temporal, $row['rumroute']);
+            array_push($temporal, $row['numroute']);
             array_push($temporal, $row['description']);
             array_push($temporal, $row['ticketCost']);
             array_push($temporal, $row['durationtime']);
@@ -44,5 +43,4 @@ function getData($id, $link)
 
     mysqli_close($link);
 }
-
 ?>

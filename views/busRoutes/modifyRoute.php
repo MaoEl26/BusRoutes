@@ -153,22 +153,21 @@
         url: '../../controller/getRouteInfo.php',
         type: "POST",
         dataType: 'json',
-        data:{
+        data: {
           getCompanyInfo: "true",
           company: selectedOption.value
         },
         success: function(result) {
-          alert ("entre aqui");
-          /*document.getElementById("inputNumRuta").value = result[1];
-          document.getElementById("inputDescripcion").value = result[2];
-          document.getElementById("inputCost").value = result[3];
-          document.getElementById("inputDuracion").value = result[4];
-          document.getElementById("inputDiscapacidad").value = result[5];
-          document.getElementById("inputFrecuencia").value = result[6];
-          document.getElementById("lat").value = result[7];
-          document.getElementById("lng").value = result[8];
-          document.getElementById("inputHoraInicio").value = result[9];
-          document.getElementById("inputHoraFin").value = result[10];*/
+          document.getElementById("inputNumRuta").value = result[0];
+          document.getElementById("inputDescripcion").value = result[1];
+          document.getElementById("inputCost").value = result[2];
+          document.getElementById("inputDuracion").value = result[3];
+          document.getElementById("inputDiscapacidad").value = result[4];
+          document.getElementById("inputFrecuencia").value = result[5];
+          document.getElementById("lat").value = result[6];
+          document.getElementById("lng").value = result[7];
+          document.getElementById("inputHoraInicio").value = result[8];
+          document.getElementById("inputHoraFinal").value = result[9];
         },
         error: function(request, status, error) {
           alert('Ha surgido un error procesando su petición.');
