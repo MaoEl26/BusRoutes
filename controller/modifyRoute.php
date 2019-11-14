@@ -41,16 +41,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $freq = trim($_POST["inputFrecuencia"]);
     $time = trim($_POST["inputDuracion"]);
     $silla = $_POST["inputDiscapacidad"];
-    $long = "0";
-    $lat = "0";
+    $long = trim($_POST["lng"]);
+    $lat = trim($_POST["lat"]);
     $idCompany = trim($_POST["inputCompany"]);
 
     if(empty($ruta_err))
     {   
-        $sql = "INSERT INTO Route(numroute,description,ticketCost,durationtime,disability,frecuency,latitude,longitude,starttime,finishtime,idCompany)Values(?,?,?,?,?,?,?,?,?,?,?)";
+        $sql = "UPDATE Route set numroute = ?,description = ?,ticketCost = ?,durationtime = ?,disability = ?,frecuency = ?,latitude = ?,longitude = ?,starttime = ?,finishtime = ?";
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssssisssssi", $param_ruta,$param_descrip,$param_ticket,$param_time,$param_silla,$param_freq,$param_lat,$param_long,$param_inicio,$param_fin,$param_company);
+            mysqli_stmt_bind_param($stmt, "ssssisssss", $param_ruta,$param_descrip,$param_ticket,$param_time,$param_silla,$param_freq,$param_lat,$param_long,$param_inicio,$param_fin);
             
             // Set parameters
             //$param_id = 2;
@@ -69,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("location: ../views/busRoutes/registerRoute.php");
+                header("location: ../views/busRoutes/modifyRoute.php");
             } else{
                 echo "Algo salió mal. Intentelo de nuevo.";
             }
