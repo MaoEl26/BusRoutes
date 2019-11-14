@@ -1,7 +1,8 @@
 <?php
-include "./connection.php";
+//include "./connection.php";
+
 function getCompanies(){
-    //require_once "../../controller/connection.php";
+    require_once "../../controller/connection.php";
     $sql = "SELECT idCompany,name FROM Company";
     $array = array();
     $temporal = array();
@@ -25,7 +26,7 @@ $ruta = $descrip = $ticket = $time = $silla = $freq = $lat = $long = $inicio = $
 $ruta_err  = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-    //require_once "../../controller/connection.php";
+    require_once "../../controller/connection.php";
     $sql = "SELECT numroute FROM Route WHERE numroute = ?";
     if($stmt = mysqli_prepare($link, $sql)){
         // Bind variables to the prepared statement as parameters

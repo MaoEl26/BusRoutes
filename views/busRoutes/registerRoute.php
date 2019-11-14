@@ -25,7 +25,7 @@
 <body>  
     <div id="nav-placeholder">
     </div>
-  <?php include_once '../../controller/modifyCompany.php'; 
+  <?php include_once '../../controller/registroRoute.php'; 
    $companies = getCompanies();
    //var_dump($companies);
   ?>
