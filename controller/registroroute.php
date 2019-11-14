@@ -41,8 +41,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $freq = trim($_POST["inputFrecuencia"]);
     $time = trim($_POST["inputDuracion"]);
     $silla = $_POST["inputDiscapacidad"];
-    $long = "0";
-    $lat = "0";
+    $long = trim($_POST["lng"]);
+    $lat = trim($_POST["lat"]);
     $idCompany = trim($_POST["inputCompany"]);
 
     if(empty($ruta_err))

@@ -36,7 +36,7 @@
     <br>
     <br>
     <h3 class="login-heading mb-4" style="text-align: center; ">Agregar Ruta</h3>
-     <div class="container" style="width: 700px">
+     <div class="container" style="width: 900px">
      <?php
         if(!empty($ruta_error)){
           echo '<div class="alert alert-danger"> <strong>Atención! </strong>'.$ruta_error."</div>";
@@ -97,9 +97,9 @@
                   </div>  
 
                 </div>
-                <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2" name ="action" value ="Save_Map" onclick="getCoordinates()" >Guardar Mapa</button>
-                <input type="text" name="lat" id="lat" class="form-control" readonly>
-                <input type="text" name="lng" id="lng" class="form-control" readonly>
+                <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2" Type= "button" onclick="getCoordinates()" >Guardar Mapa</button>
+                <input type="hidden" name="lat" id="lat" class="form-control" readonly>
+                <input type="hidden" name="lng" id="lng" class="form-control" readonly>
                 
           </div>
           <br>

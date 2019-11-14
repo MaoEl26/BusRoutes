@@ -35,7 +35,7 @@
     <br>
     <br>
     <h3 class="login-heading mb-4" style="text-align: center; ">Modificar Ruta</h3>
-     <div class="container-fluid" style="width: 700px">
+     <div class="container-fluid" style="width: 900px">
     <form action="/modifyRoute" method="POST" >
           <div class="form-group" >
               <label for="inputCompany">Seleccione la empresa</label>
@@ -89,7 +89,7 @@
                     <div id="mapid" class="container" style="height: 700px; width: 650px ">
                 
                     </div>
-                    <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" value ="Save_Map" onclick="getCoordinates()" >Guardar Mapa</button>
+                    <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2" type="Button" onclick="getCoordinates()" >Guardar Mapa</button>
                 <input type="text" name="lat" id="lat" class="form-control" readonly>
                 <input type="text" name="lng" id="lng" class="form-control" readonly>
                 </div>
