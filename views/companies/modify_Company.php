@@ -29,7 +29,6 @@
   <div class="container" style="background-color: rgb(100,100,100); ">
 
     <?php
-    //require_once "../../controller/connection.php";
     include_once '../../controller/getCompanies.php';
     $companies = getCompanies();
     //var_dump($companies);

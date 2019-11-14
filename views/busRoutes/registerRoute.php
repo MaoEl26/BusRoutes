@@ -25,8 +25,9 @@
 <body>  
     <div id="nav-placeholder">
     </div>
-  <?php include_once '../../controller/registroRoute.php'; 
-   $companies = getCompanies();
+  <?php 
+    include_once '../../controller/getCompanies.php';
+    $companies = getCompanies();
    //var_dump($companies);
   ?>
  <div class="container" style="background-color: rgb(100,100,100); ">
@@ -45,6 +46,7 @@
           <div class="form-group" >
               <label for="inputCompany">Seleccione la empresa a la que pertenece</label>
               <select name="inputCompany" id="inputCompany" class="form-control">
+              <option value="" selected>Ninguna empresa seleccionada</option>
               <?php 
                 foreach ($companies as $company) {
                  echo '<option value="'. $company[0].'" onclick="">'. $company[1] ."</option>";
