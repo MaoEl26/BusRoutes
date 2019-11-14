@@ -1,9 +1,9 @@
 
 
 var coord ;
-var lat ;
-var lng ;
-
+var lat = "";
+var lng = "";
+var routeArray;
 
 var mymap = L.map('mapid', {zoomControl:false} ).setView([9.934739, -84.087502], 12);
 L.control.zoom({
@@ -38,22 +38,31 @@ var routeControl = L.Routing.control({
     return btn;
 }
 
-mymap.on('click', function(e) {        
-	   getCoordinatesRegister();    
+mymap.on('click', function(e) {      
+	
+	     
 });
 
+function getCoordinates(){
+	lat = "";
+	lng = "";
+	routeArray = new Array();
+	routeArray = routeControl.getWaypoints();
+	for(var i =0; i <routeArray.length; i++ ){
+		lat = lat + routeArray[i].latLng.lat + ", ";
+		lng = lng +routeArray[i].latLng.lng + ",";
+		
 
+	}
+	document.getElementById("lat").value = lat; 
+	document.getElementById("lng").value = lng;
+	
+	
+
+}
 
 	
-$.ajax({
-		type: "POST",
-		url: "../../controller/registroroute.php",
-		data: routeArray,
-		success: function() {
-			alert("datos exitosos");
-		}
-	  });
-		
+
 	
 
 

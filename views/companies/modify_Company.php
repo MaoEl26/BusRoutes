@@ -89,6 +89,8 @@
           <div class="form-label-group">
             <input type="text" name="inputDireccionSenna" id="inputDireccionSenna" class="form-control" placeholder="Dirección" required>
             <label for="inputDireccionSenna">Dirección exacta</label>
+            <input type="text" name="lat" id="lat" class="form-control" readonly>
+            <input type="text" name="lng" id="lng" class="form-control" readonly>
           </div>
         </div>
         <div>
