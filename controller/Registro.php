@@ -3,8 +3,8 @@
 require_once "./connection.php";
 
 // Define variables and initialize with empty values
-$nombre = $apellido1 = $apellido2 = $password = $correo = $id =  "";
-$password_err = $correo_err = $id_err  = "";
+$nombre = $apellido1 = $apellido2 = $password = $correo = $id = $confirm_password = "";
+$password_err = $correo_err = $id_err = $confirm_password_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -79,6 +79,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $password = trim($_POST["inputPassword"]);
     }
+
+    // Validate confirm password
+    if(empty(trim($_POST["inputPasswordConfirm"]))){
+        $confirm_password_err = "Por favor confirme la contraseña.";
+    } else{
+        $confirm_password = trim($_POST["inputPasswordConfirm"]);
+        if(empty($password_err) && ($password != $confirm_password)){
+            $confirm_password_err = "Las contraseñas no coinciden.";
+        }
+    }
     // Validate nombre
     $nombre = trim($_POST["inputName"]);
 
@@ -89,9 +99,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo $password_err;
     echo $id_err;
     echo $correo_err;
+    echo $confirm_password_err;
 
     // Check input errors before inserting in database
-    if (empty($password_err) && empty($id_err) && empty($correo_err)) {
+    if (empty($password_err) && empty($id_err) && empty($correo_err) && empty($confirm_password_err)) {
         
         // Prepare an insert statement
         $sql = "INSERT INTO `RXWuaQvtL6`.`Users`(`username`, `name`, `lastname1`, `lastname2`, `email`, `password`,`Active`) VALUES (?,?,?,?,?,?,?)";
