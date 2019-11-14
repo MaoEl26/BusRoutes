@@ -16,8 +16,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $direccion = trim($_POST["inputDireccionSenna"]);
     
-    $latitude = trim($_POST["inputDireccionSenna"]);
-    $longitud = trim($_POST["inputDireccionSenna"]);
+    $latitude = trim($_POST["lat"]);
+    $longitud = trim($_POST["lng"]);
    
 
     $dias = $_POST["inputDiasSemana"];
@@ -49,8 +49,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_email = $correo;
             $param_anomalycontact = $anomalias;
             $param_addresssigns = $direccion;
-            $param_latitude = $direccion;
-            $param_longitude = $direccion;
+            $param_latitude = $latitude;
+            $param_longitude = $longitud;
             $param_daysattention = $stringDias;
             $param_openingtime = $apertura;
             $param_closingtime = $cierre;
