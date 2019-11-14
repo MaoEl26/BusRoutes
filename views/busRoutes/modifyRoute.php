@@ -17,20 +17,20 @@
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
   <title></title>
-
 </head>
 
-<body>
-   
-    <div id="nav-placeholder">
+<?php
+    include_once '../../controller/getCompanies.php';
+    $companies = getCompanies();
+?>
 
-      </div>
+<body>
+ <div id="nav-placeholder">
+ </div>
 
  <div class="container" style="background-color: rgb(100,100,100); ">
- 	
-
-
  </div>
+
  <div>
     <br>
     <br>
@@ -40,11 +40,18 @@
           <div class="form-group" >
               <label for="inputCompany">Seleccione la empresa</label>
               <select name="inputCompany" id="inputCompany" class="form-control">
+              <option value="" selected>Ninguna empresa seleccionada</option>
+                <?php
+                foreach ($companies as $company) {
+                  echo '<option value="' . $company[0] . '">' . $company[1] . "</option>";
+                }
+                ?>
               </select>
           </div>
           <div class="form-group" >
               <label for="inputRoute">Seleccione la ruta:</label>
               <select name="inputRoute" id="inputRoute" class="form-control">
+                <option value="" selected>Ninguna ruta seleccionada</option>
               </select>
           </div>
           <div class="form-label-group" >
@@ -105,6 +112,71 @@
     $(function(){
       $("#nav-placeholder").load("../../public/nav.html");
     });
+
+    $('#inputCompany').on('change', function(e) {
+      
+      var select = document.getElementById('inputCompany');
+      var selectedOption = this.options[select.selectedIndex];
+      //alert(selectedOption.value);               
+      e.preventDefault // prevent form submission
+      $.ajax({
+        url: '../../controller/getRoutes.php',
+        type: "POST",
+        dataType: 'json',
+        data: {
+          getCompanyInfo: "true",
+          company: selectedOption.value
+        },
+        success: function(result) {
+          var salida = '<select name="inputRoute" id="inputRoute" class="form-control">'
+                +'<option value="" selected>Ninguna ruta seleccionada</option>';                   
+          $("#inputRoute").html("");
+          for (var i = 0; i < result.length; i++) {
+                salida += '<option value="'+result[i]+'">'+result[i]+'</option>';
+            }
+          salida += "</select>";
+          $("#inputRoute").html(salida);
+        },
+        error: function(request, status, error) {
+          alert('Ha surgido un error procesando su petición.');
+        }
+      });
+    });
+
+    $('#inputRoute').on('change', function(e) {
+      
+      var select = document.getElementById('inputRoute');
+      var selectedOption = this.options[select.selectedIndex];
+      //alert(selectedOption.value);               
+      e.preventDefault // prevent form submission
+      $.ajax({
+        url: '../../controller/getRouteInfo.php',
+        type: "POST",
+        dataType: 'json',
+        data:{
+          getCompanyInfo: "true",
+          company: selectedOption.value
+        },
+        success: function(result) {
+          alert ("entre aqui");
+          /*document.getElementById("inputNumRuta").value = result[1];
+          document.getElementById("inputDescripcion").value = result[2];
+          document.getElementById("inputCost").value = result[3];
+          document.getElementById("inputDuracion").value = result[4];
+          document.getElementById("inputDiscapacidad").value = result[5];
+          document.getElementById("inputFrecuencia").value = result[6];
+          document.getElementById("lat").value = result[7];
+          document.getElementById("lng").value = result[8];
+          document.getElementById("inputHoraInicio").value = result[9];
+          document.getElementById("inputHoraFin").value = result[10];*/
+        },
+        error: function(request, status, error) {
+          alert('Ha surgido un error procesando su petición.');
+          alert(error);
+        }
+      });
+    });
+
     </script>
   
     
