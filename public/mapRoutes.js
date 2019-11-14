@@ -43,11 +43,9 @@ mymap.on('click', function(e) {
 });
 
 
-function getCoordinatesRegister(){
-	var routeArray = new Array();
-	routeArray = routeControl.getWaypoints();
+
 	
-	$.ajax({
+$.ajax({
 		type: "POST",
 		url: "../../controller/registroroute.php",
 		data: routeArray,
@@ -55,10 +53,9 @@ function getCoordinatesRegister(){
 			alert("datos exitosos");
 		}
 	  });
-
 		
 	
-}
+
 
 
 
