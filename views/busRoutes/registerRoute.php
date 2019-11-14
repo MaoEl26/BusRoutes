@@ -35,7 +35,7 @@
     <br>
     <br>
     <h3 class="login-heading mb-4" style="text-align: center; ">Agregar Ruta</h3>
-     <div class="container" style="width: 500px">
+     <div class="container" style="width: 700px">
      <?php
         if(!empty($ruta_error)){
           echo '<div class="alert alert-danger"> <strong>Atención! </strong>'.$ruta_error."</div>";
@@ -90,22 +90,25 @@
           <div>
                 <h4 class="login-heading mb-2" style="text-align: center;">Ruta del Viaje</h4>
                 <div class="form-label-group" >
-                  <div id="mapid" class="container-fluid" style="height: 200px;  ">
+                  <div id="mapid" class="container-fluid" style="height: 600px;  ">
                 
                   </div>  
 
                 </div>
+                <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2" name ="action" value ="Save_Map" onclick="getCoordinates()" >Guardar Mapa</button>
+                <input type="text" name="lat" id="lat" class="form-control" readonly>
+                <input type="text" name="lng" id="lng" class="form-control" readonly>
                 
           </div>
           <br>
-          <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" onclick="getCoordinatesRegister()" >Guardar</button>
+          <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit"  name ="save"  >Guardar</button>
               
       </form>
   
       
       </div>
   </div>
-  <script src="../../public/map.js"></script>
+  <script src="../../public/mapRoutes.js"></script>
  <script>
     $(function(){
       $("#nav-placeholder").load("../../public/nav.html");

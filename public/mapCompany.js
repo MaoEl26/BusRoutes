@@ -43,7 +43,17 @@ mymap.on('click', function(e) {
 	
 });
 
-
+	function showPoints(lat, lng){
+		if (marker != undefined) {
+			mymap.removeLayer(marker);
+			 };
+		   console.log(lat + "  "+ lng);
+	
+		   marker = L.marker([lat, lng]).addTo(mymap);
+		   document.getElementById("lat").value = lat; 
+		   document.getElementById("lng").value = lng;
+		
+	}
 	
 	
 
