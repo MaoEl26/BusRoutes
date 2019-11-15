@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Inicio de Sesión</title>
-    <link rel="stylesheet" type="text/css" href="../public/css/logIn.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+  <meta charset="UTF-8">
+  <title>Inicio de Sesión</title>
+  <link rel="stylesheet" type="text/css" href="../public/css/logIn.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -14,64 +15,69 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 </head>
+
 <body>
-    <div class="container-fluid">
-        <div class="row no-gutter">
-          <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
-          <div class="col-md-8 col-lg-6">
-            <div class="login d-flex align-items-center py-5">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-9 col-lg-8 mx-auto">
-                    <h3 class="login-heading mb-4">Bienvenidos</h3>
-                    <!--% if (message){ %>
+  <div class="container-fluid">
+    <div class="row no-gutter">
+      <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+      <div class="col-md-8 col-lg-6">
+        <div class="login d-flex align-items-center py-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-9 col-lg-8 mx-auto">
+                <h3 class="login-heading mb-4">Bienvenidos</h3>
+                <!--% if (message){ %>
                       <div class="alert alert-danger">
                         <strong>Atención! </strong><%= message %>.
                       </div>
                     <% } %-->
-                    <form method="POST" action="../controller/login.php">
-                      <div class="form-label-group">
-                        <input type="text" name="inputUser" id="inputUser" class="form-control" placeholder="User" required >
-                        <label for="inputUser">Usuario</label>
-                      </div>
-                      <div class="form-label-group">
-                        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required >
-                        <label for="inputPassword">Contraseña</label>
-                      </div>
-                      <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" >Iniciar Sesión</button>
-                      <div class="text-center">
-                        <a class="small" href="./register.html">Registro   |</a>
-                        <a class="small" href="./cambioContraseña.html">¿Olvidó Contraseña?   |</a>
-                        <a class="small" href="javascript:setGuest()" id="guest" name="guest">Ingresar como Invitado</a>
-                      </div>
-                    </form>
+
+                <form method="POST" action="../controller/login.php">
+                  <div class="form-label-group">
+                    <input type="text" name="inputUser" id="inputUser" class="form-control" placeholder="User" required>
+                    <label for="inputUser">Usuario</label>
                   </div>
-                </div>
+                  <div class="form-label-group">
+                    <input type="password" name="inputPassword" id="inputPassword" class="form-control"
+                      placeholder="Password" required>
+                    <label for="inputPassword">Contraseña</label>
+                  </div>
+                  <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                    type="submit">Iniciar Sesión</button>
+                  <div class="text-center">
+                    <a class="small" href="./register.html">Registro |</a>
+                    <a class="small" href="./cambioContraseña.html">¿Olvidó Contraseña? |</a>
+                    <a class="small" href="#" id="guest">Ingresar como Invitado</a>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <script>     
-      function setGuest(){
-        //window.location.href = './main.php';       
-        //e.preventDefault       
-        $.ajax({         
-          url: '/BusRoutes/views/main.php',         
-          type: "POST",         
-          dataType: 'json',         
-          data: {           
-            guest: "true"         
-          },         
-          success: function () {           
-            alert("SI");         
-          },       
-          error: function (request, status, error) {           
-            alert('Ha surgido un error procesando su petición.');
-            alert(error);         
-          }      
-        });     
-      };   
-    </script>
+    </div>
+  </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>
+    $('#guest').click(function (e) {
+      //window.location.href = '../views/main.php';
+      e.preventDefault
+      $.ajax({
+        url: 'main.php',
+        data: {
+          guest: 'true'
+        },
+        type: 'post',
+        success: function (result) {
+          alert("siii");
+        },
+        error: function (request, status, error) {
+          alert('Ha surgido un error procesando su petición.');
+        }
+      });
+    });      
+
+  </script>
 </body>
+
 </html>
