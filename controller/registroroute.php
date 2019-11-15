@@ -1,31 +1,14 @@
 <?php
-include "./connection.php";
-function getCompanies(){
-    //require_once "../../controller/connection.php";
-    $sql = "SELECT idCompany,name FROM Company";
-    $array = array();
-    $temporal = array();
-    if($result = mysqli_query($link, $sql)){
-        while($row = mysqli_fetch_assoc($result)) {
-            //$id = $row['username'];
-            array_push($temporal,$row['idCompany']);
-            array_push($temporal,$row['name']);
-            array_push($array,$temporal);
-            $temporal = array();
-         }
-      return $array;
-    }
-    mysqli_close($link);
-}
 
 //$data = $_REQUEST['data'];
+require_once "./connection.php";
 
 // Define variables and initialize with empty values
 $ruta = $descrip = $ticket = $time = $silla = $freq = $lat = $long = $inicio = $fin = $idCompany =  "";
 $ruta_err  = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-    //require_once "../../controller/connection.php";
+    
     $sql = "SELECT numroute FROM Route WHERE numroute = ?";
     if($stmt = mysqli_prepare($link, $sql)){
         // Bind variables to the prepared statement as parameters
@@ -58,8 +41,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $freq = trim($_POST["inputFrecuencia"]);
     $time = trim($_POST["inputDuracion"]);
     $silla = $_POST["inputDiscapacidad"];
-    $long = "0";
-    $lat = "0";
+    $long = trim($_POST["lng"]);
+    $lat = trim($_POST["lat"]);
     $idCompany = trim($_POST["inputCompany"]);
 
     if(empty($ruta_err))

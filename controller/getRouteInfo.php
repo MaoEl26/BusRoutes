@@ -21,11 +21,22 @@ if (isset($_POST['getCompanyInfo'])) {
 function getRoutes($id, $link)
 {
     //require_once "../../controller/connection.php";
-    $sql = "SELECT numroute FROM Route WHERE idCompany = " . "$id";
+    $sql = "SELECT numroute,description,ticketCost,durationtime,
+    disability,frecuency,latitude,longitude,starttime,finishtime 
+    FROM Route WHERE numroute = " . "$id";
     $temporal = array();
     if ($result = mysqli_query($link, $sql)) {
         while ($row = mysqli_fetch_assoc($result)) {
             array_push($temporal, $row['numroute']);
+            array_push($temporal, $row['description']);
+            array_push($temporal, $row['ticketCost']);
+            array_push($temporal, $row['durationtime']);
+            array_push($temporal, $row['disability']);
+            array_push($temporal, $row['frecuency']);
+            array_push($temporal, $row['latitude']);
+            array_push($temporal, $row['longitude']);
+            array_push($temporal, $row['starttime']);
+            array_push($temporal, $row['finishtime']);
         }
         return $temporal;
     }

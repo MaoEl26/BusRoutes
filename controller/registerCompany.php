@@ -1,13 +1,14 @@
 <?php
 // Include config file
 require_once "./connection.php";
- 
 // Define variables and initialize with empty values
-$nombre = $numTelefono = $origen = $destino = $correo = $numTelefono = $direccion = $dias = "";
+$nombre = $numTelefono = $origen = $destino = $correo = $numTelefono = $direccion = $dias = "" ;
 $latitude = $longitud = $apertura = $cierre = $anomalias = "";
-$correo_err = $id_err  = "";
- 
+$correo_err = $id_err  = ""; 
+
+
 // Processing form data when form is submitted
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $sql = "SELECT name FROM Company WHERE name = ?";
@@ -21,7 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
-            /* store result */
+             
             mysqli_stmt_store_result($stmt);
             
             if(mysqli_stmt_num_rows($stmt) == 1){
@@ -49,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
-            /* store result */
+            
             mysqli_stmt_store_result($stmt);
             
             if(mysqli_stmt_num_rows($stmt) == 1){
@@ -74,8 +75,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $direccion = trim($_POST["inputDireccionSenna"]);
     
-    $latitude = trim($_POST["inputDireccionSenna"]);
-    $longitud = trim($_POST["inputDireccionSenna"]);
+    $latitude = trim($_POST["lat"]);
+    $longitud = trim($_POST["lng"]);
 
     $dias = $_POST["inputDiasSemana"];
     $stringDias = implode(',', $dias); // Convierte el array de días a string separado por comas.
@@ -111,8 +112,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_email = $correo;
             $param_anomalycontact = $anomalias;
             $param_addresssigns = $direccion;
-            $param_latitude = $direccion;
-            $param_longitude = $direccion;
+            $param_latitude = $latitude;
+            $param_longitude = $longitud;
             $param_daysattention = $stringDias;
             $param_openingtime = $apertura;
             $param_closingtime = $cierre;
@@ -130,5 +131,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     // Close connection
     mysqli_close($link);
+    
 }
 ?>

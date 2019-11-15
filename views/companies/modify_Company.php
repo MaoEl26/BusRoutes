@@ -5,13 +5,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="../../public/css/logIn.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
-  <title></title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  
 
 </head>
 
@@ -25,8 +22,7 @@
   <div class="container" style="background-color: rgb(100,100,100); ">
 
     <?php
-    //require_once "../../controller/connection.php";
-    include_once '../../controller/modifyCompany.php';
+    include_once '../../controller/getCompanies.php';
     $companies = getCompanies();
     //var_dump($companies);
     //$companyInfo = getData(1, $link);    
@@ -38,7 +34,7 @@
     <br>
     <h3 class="login-heading mb-4" style="text-align: center; ">Modificar Empresa</h3>
     <div class="container" style="width: 500px">
-      <form action="/modifyCompany" method="POST">
+      <form action="../../controller/modifyCompany.php" method="POST">
         <div class="form-group">
           <label for="inputCompany">Seleccione la empresa</label>
           <select name="inputCompany" id="inputCompany" class="form-control">
@@ -85,6 +81,8 @@
           <div class="form-label-group">
             <input type="text" name="inputDireccionSenna" id="inputDireccionSenna" class="form-control" placeholder="Dirección" required>
             <label for="inputDireccionSenna">Dirección exacta</label>
+            <input type="hidden" name="lat" id="lat" class="form-control" readonly>
+            <input type="hidden" name="lng" id="lng" class="form-control" readonly>
           </div>
         </div>
         <div>
@@ -122,8 +120,15 @@
 
     </div>
   </div>
-  <script src="../../public/map.js"></script>
+  <script src="../../public/mapCompany.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   <script>
     $(function() {
       $("#nav-placeholder").load("../../public/nav.html");
@@ -135,7 +140,7 @@
       //alert(selectedOption.value);               
       e.preventDefault // prevent form submission
       $.ajax({
-        url: '../../controller/modifyCompany.php',
+        url: '../../controller/getCompanies.php',
         type: "POST",
         dataType: 'json',
         data: {
@@ -154,10 +159,11 @@
 
           var arrayDias = result[10].split(",");
 
-          for (var i = 0; i < arrayDias.length; i++){            
+          for (var i = 0; i < arrayDias.length; i++) {
             document.getElementById('inputDiasSemana').getElementsByTagName('option')[i].selected = 'selected'
-          }          
-          
+          }
+          showPoints(result[8], result[9]);
+
           document.getElementById("inputHoraApertura").value = result[11];
           document.getElementById("inputHoraCierre").value = result[12];
         },
@@ -167,6 +173,7 @@
       });
     });
   </script>
+
 </body>
 
 </html>

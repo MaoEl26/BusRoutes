@@ -3,7 +3,7 @@
 var coord ;
 var lat ;
 var lng ;
-
+var marker
 
 var mymap = L.map('mapid', {zoomControl:false} ).setView([9.934739, -84.087502], 12);
 L.control.zoom({
@@ -19,17 +19,7 @@ L.tileLayer('http://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={a
 }).addTo(mymap);
 
 
-var routeControl = L.Routing.control({
-	waypoints: [
-		L.latLng(9.934739, -84.087502),
-        L.latLng(9.934739, -84.087502)
-	],
-	routeWhileDragging: true,
-	show: false,
-	geocoder: L.Control.Geocoder.nominatim()
-	
 
-  }).addTo(mymap);
 
   function createButton(label, container) {
     var btn = L.DomUtil.create('button', '', container);
@@ -39,26 +29,42 @@ var routeControl = L.Routing.control({
 }
 
 mymap.on('click', function(e) {        
-	   getCoordinatesRegister();    
+
+	   lat = e.latlng.lat;
+	   lng = e.latlng.lng; 
+	   if (marker != undefined) {
+		mymap.removeLayer(marker);
+  	   };
+	   console.log(lat + "  "+ lng);
+
+	   marker = L.marker([lat, lng]).addTo(mymap);
+	   document.getElementById("lat").value = lat; 
+	   document.getElementById("lng").value = lng;
+	
 });
 
-
-function getCoordinatesRegister(){
-	var routeArray = new Array();
-	routeArray = routeControl.getWaypoints();
+	function showPoints(lat, lng){
+		if (marker != undefined) {
+			mymap.removeLayer(marker);
+			 };
+		   console.log(lat + "  "+ lng);
 	
-	$.ajax({
-		type: "POST",
-		url: "../../controller/registroroute.php",
-		data: routeArray,
-		success: function() {
-			alert("datos exitosos");
-		}
-	  });
-
+		   marker = L.marker([lat, lng]).addTo(mymap);
+		   document.getElementById("lat").value = lat; 
+		   document.getElementById("lng").value = lng;
 		
+	}
 	
-}
+	
+
+	
+
+	/*
+	
+
+	$.post("../../controller/registerCompany.php", data);	
+
+*/	
 
 
 

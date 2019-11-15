@@ -7,44 +7,51 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-  crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
   <title></title>
-
 </head>
 
-
+<?php
+    include_once '../../controller/getCompanies.php';
+    $companies = getCompanies();
+?>
 
 <body>
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
-    <div id="nav-placeholder">
-
-      </div>
+ <div id="nav-placeholder">
+ </div>
 
  <div class="container" style="background-color: rgb(100,100,100); ">
- 	
-
-
  </div>
+
  <div>
     <br>
     <br>
     <h3 class="login-heading mb-4" style="text-align: center; ">Modificar Ruta</h3>
-     <div class="container" style="width: 500px">
+     <div class="container-fluid" style="width: 900px">
     <form action="/modifyRoute" method="POST" >
           <div class="form-group" >
               <label for="inputCompany">Seleccione la empresa</label>
               <select name="inputCompany" id="inputCompany" class="form-control">
+              <option value="" selected>Ninguna empresa seleccionada</option>
+                <?php
+                foreach ($companies as $company) {
+                  echo '<option value="' . $company[0] . '">' . $company[1] . "</option>";
+                }
+                ?>
               </select>
           </div>
           <div class="form-group" >
               <label for="inputRoute">Seleccione la ruta:</label>
               <select name="inputRoute" id="inputRoute" class="form-control">
+                <option value="" selected>Ninguna ruta seleccionada</option>
               </select>
           </div>
           <div class="form-label-group" >
@@ -85,24 +92,90 @@
           <div>
                 <h4 class="login-heading mb-2" style="text-align: center;">Ruta del Viaje</h4>
                 <div class="form-label-group" >
-                    <label for="inputDireccionMarcador">Mapa con Ruta</label>
-                    <div id="mapid" class="container-fluid" style="height: 200px;  ">
+                    <div id="mapid" class="container-fluid" style="height: 700px; width: 700px ">
                 
                     </div>
-
+                    <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2" type="Button" onclick="getCoordinates()" >Guardar Mapa</button>
+                <input type="hidden" name="lat" id="lat" class="form-control" readonly>
+                <input type="hidden" name="lng" id="lng" class="form-control" readonly>
                 </div>
           </div>
-          <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Guardar</button>
+          <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" value= "save">Guardar</button>
               
       </form>
   
       </div>
   </div>
-  <script src="../../public/map.js"></script>
+  <script src="../../public/mapRoutes.js"></script>
  <script>
     $(function(){
       $("#nav-placeholder").load("../../public/nav.html");
     });
+
+    $('#inputCompany').on('change', function(e) {
+      
+      var select = document.getElementById('inputCompany');
+      var selectedOption = this.options[select.selectedIndex];
+      //alert(selectedOption.value);               
+      e.preventDefault // prevent form submission
+      $.ajax({
+        url: '../../controller/getRoutes.php',
+        type: "POST",
+        dataType: 'json',
+        data: {
+          getCompanyInfo: "true",
+          company: selectedOption.value
+        },
+        success: function(result) {
+          var salida = '<select name="inputRoute" id="inputRoute" class="form-control">'
+                +'<option value="" selected>Ninguna ruta seleccionada</option>';                   
+          $("#inputRoute").html("");
+          for (var i = 0; i < result.length; i++) {
+                salida += '<option value="'+result[i]+'">'+result[i]+'</option>';
+            }
+          salida += "</select>";
+          $("#inputRoute").html(salida);
+        },
+        error: function(request, status, error) {
+          alert('Ha surgido un error procesando su petición.');
+        }
+      });
+    });
+
+    $('#inputRoute').on('change', function(e) {
+      
+      var select = document.getElementById('inputRoute');
+      var selectedOption = this.options[select.selectedIndex];
+      //alert(selectedOption.value);               
+      e.preventDefault // prevent form submission
+      $.ajax({
+        url: '../../controller/getRouteInfo.php',
+        type: "POST",
+        dataType: 'json',
+        data: {
+          getCompanyInfo: "true",
+          company: selectedOption.value
+        },
+        success: function(result) {
+          document.getElementById("inputNumRuta").value = result[0];
+          document.getElementById("inputDescripcion").value = result[1];
+          document.getElementById("inputCost").value = result[2];
+          document.getElementById("inputDuracion").value = result[3];
+          document.getElementById("inputDiscapacidad").value = result[4];
+          document.getElementById("inputFrecuencia").value = result[5];
+          document.getElementById("lat").value = result[6];
+          document.getElementById("lng").value = result[7];
+          document.getElementById("inputHoraInicio").value = result[8];
+          document.getElementById("inputHoraFinal").value = result[9];
+          printCoordinates();
+        },
+        error: function(request, status, error) {
+          alert('Ha surgido un error procesando su petición.');
+          alert(error);
+        }
+      });
+    });
+
     </script>
   
     
