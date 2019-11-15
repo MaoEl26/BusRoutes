@@ -70,6 +70,36 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
                 header("location: ../views/busRoutes/registerRoute.php");
+                //------Crear registro en el log--------------------------------------- 
+
+                        // Prepare an insert statement
+                        $sql = "INSERT INTO `RXWuaQvtL6`.`Log`(`username`,`accion`,`fechaHora`) VALUES (?,?,CURRENT_TIMESTAMP);";
+
+                        if ($stmt = mysqli_prepare($link, $sql)) {
+                            // Bind variables to the prepared statement as parameters
+                            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_accion);
+
+                            // Set parameters
+                            $param_username = $_SESSION["username"];
+                            $param_accion = "Registro de ruta";
+                            
+                            // Attempt to execute the prepared statement
+                            if (mysqli_stmt_execute($stmt)) {
+                                // Redirect to login page                
+                                //header('Location: ../views/main.html');
+                                echo "Log realizado";
+                            } else {
+                                echo "Algo salió mal. No se pudo realizar el registro en el log.";
+                            }
+                                            // Close statement
+                            mysqli_stmt_close($stmt);
+                        }else{
+                            // Aqui se debe hacer un redirect al formulario de registro
+                            // que indique los errores ya sea del password, username,
+                            // o correo.
+                        }
+
+                        //------Termina Registro de Log--------------------------------------- 
             } else{
                 echo "Algo salió mal. Intentelo de nuevo.";
             }

@@ -15,54 +15,7 @@
 
 
 <body>
-  
-    <div id="nav-placeholder">
-      </div>
-
- <div class="container" style="background-color: rgb(100,100,100); ">
- </div>
-
- <div>
-    <br>
-    <br>
-    <h3 class="login-heading mb-4" style="text-align: center; ">Log de Actividades</h3>
-    <div class="container" style="width: 500px">
-        <form action="getLogInfo()" method="POST" >
-            <div>
-                <div class="form-label-group" >
-                    <label for="inputStartDate">Fecha Inicio</label>
-                    <input type="date" name="inputStartDate" id = "inputStartDate" class="form-control" placeholder="Fecha Inicio" required>
-                </div>
-                <div class="form-label-group" >
-                    <label for="inputEndDate">Fecha Final</label>
-                    <input type="date" name="inputEndDate" id="inputEndDate" class="form-control" placeholder="Fecha Final" required>
-                </div>
-                <div class="form-label-group" >
-                    <br>
-                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Buscar</button>    
-                    <br>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="container" >
-        <table class="table table-striped" id="tableLog">
-            <thead>
-                <tr>
-                    <th>Usuario</th>
-                    <th>Acción</th>
-                    <th>Fecha y Hora</th>
-                </tr>
-            </thead>
-            <tbody>
-                <td>corolla78</td>
-                <td>Prueba</td>
-                <td>24/24/24</td>
-            </tbody>
-        </table>
-    </div> 
-
- <script>
+<script>
     $(function(){
       $("#nav-placeholder").load("../../public/nav.html");
     });
@@ -101,5 +54,52 @@
       });
     });
     </script>
+    <div id="nav-placeholder">
+      </div>
+
+ <div class="container" style="background-color: rgb(100,100,100); ">
+ </div>
+
+ <div>
+    <br>
+    <br>
+    <h3 class="login-heading mb-4" style="text-align: center; ">Log de Actividades</h3>
+    <div class="container" style="width: 500px">
+        <form action="" method="POST" >
+            <div>
+                <div class="form-label-group" >
+                    <label for="inputStartDate">Fecha Inicio</label>
+                    <input type="date" name="inputStartDate" id = "inputStartDate" class="form-control" placeholder="Fecha Inicio" required>
+                </div>
+                <div class="form-label-group" >
+                    <label for="inputEndDate">Fecha Final</label>
+                    <input type="date" name="inputEndDate" id="inputEndDate" class="form-control" placeholder="Fecha Final" required>
+                </div>
+                <div class="form-label-group" >
+                    <br>
+                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" onclick="getLogInfo();">Buscar</button>    
+                    <br>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container" >
+        <table class="table table-striped" id="tableLog">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Acción</th>
+                    <th>Fecha y Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                <td>corolla78</td>
+                <td>Prueba</td>
+                <td>24/24/24</td>
+            </tbody>
+        </table>
+    </div> 
+
+    
 </body>
 </html>
