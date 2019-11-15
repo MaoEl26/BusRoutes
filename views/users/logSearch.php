@@ -57,8 +57,8 @@
             </thead>
             <tbody>
                 <td>corolla78</td>
-                <td>Prueba</td>
-                <td>24/24/24</td>
+                <td>Modificacion de Ruta</td>
+                <td>14/11/2019</td>
             </tbody>
         </table>
     </div> 

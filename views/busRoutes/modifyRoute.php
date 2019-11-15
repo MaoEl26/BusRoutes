@@ -20,6 +20,11 @@
 </head>
 
 <?php
+    session_start();
+    if(!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)){
+      header('Location: ../login.html');
+      exit;
+    }
     include_once '../../controller/getCompanies.php';
     $companies = getCompanies();
 ?>
@@ -36,7 +41,7 @@
     <br>
     <h3 class="login-heading mb-4" style="text-align: center; ">Modificar Ruta</h3>
      <div class="container-fluid" style="width: 900px">
-    <form action="/modifyRoute" method="POST" >
+    <form action="../../controller/modifyRoute.php" method="POST" >
           <div class="form-group" >
               <label for="inputCompany">Seleccione la empresa</label>
               <select name="inputCompany" id="inputCompany" class="form-control">
@@ -53,10 +58,6 @@
               <select name="inputRoute" id="inputRoute" class="form-control">
                 <option value="" selected>Ninguna ruta seleccionada</option>
               </select>
-          </div>
-          <div class="form-label-group" >
-              <input type="text" name="inputNumRuta" id = "inputNumRuta" class="form-control" placeholder="Numero Ruta" >
-              <label for="inputNumRuta">Número Ruta</label>
           </div>
           <div class="form-label-group" >
               <input type="text" name="inputDescripcion" id="inputDescripcion" class="form-control" placeholder="Descripción" required>
@@ -86,7 +87,7 @@
                 <label for="inputDuracion">Duración del viaje</label>
         </div>
         <div class="form-label-group">
-                <input type="checkbox" name="inputDiscapacidad" id="inputDiscapacidad" class="" placeholder="Discapacidad" required>
+                <input type="checkbox" name="inputDiscapacidad" id="inputDiscapacidad" class="" placeholder="Discapacidad">
                 <label for="inputDiscapacidad" class="login-heading mb-2"><h6>Posee transporte para personas con Discapacidad </h6></label>
         </div>
           <div>
@@ -155,7 +156,6 @@
           company: selectedOption.value
         },
         success: function(result) {
-          document.getElementById("inputNumRuta").value = result[0];
           document.getElementById("inputDescripcion").value = result[1];
           document.getElementById("inputCost").value = result[2];
           document.getElementById("inputDuracion").value = result[3];

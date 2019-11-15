@@ -4,7 +4,7 @@ var coord ;
 var lat = "";
 var lng = "";
 var routeArray;
-
+var waypoints =[];
 var mymap = L.map('mapid', {zoomControl:false} ).setView([9.934739, -84.087502], 12);
 L.control.zoom({
     position:'topright'
@@ -19,12 +19,10 @@ L.tileLayer('http://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={a
     
 }).addTo(mymap);
 
-
+waypoints.push(L.latLng(9.934739, -84.087502));
+waypoints.push(L.latLng(9.934739, -84.087502));
 var routeControl = L.Routing.control({
-	waypoints: [
-		L.latLng(9.934739, -84.087502),
-        L.latLng(9.934739, -84.087502)
-	],
+	waypoints,
 	routeWhileDragging: true,
 	show: false,
 	geocoder: L.Control.Geocoder.nominatim()
@@ -67,16 +65,15 @@ function printCoordinates(){
 	var lng = document.getElementById("lng").value;
 	var latArray = lat.split(",");
 	var lngArray = lng.split(",");
-	route=[];
-	for (var i=0; i < latArray.length-1;i++){
-		route.push('L.latLng('+parseFloat(latArray[i]) +', '+ parseFloat(lngArray[i])+') ');
+	waypoints= [];
+	route='';
+	for (var i=0; i < latArray.length -1  ;i++){
+		waypoints.push(L.latLng(latArray[i],lngArray[i]));
 	}
-	console.log(route);
+	
 	routeControl = L.Routing.control({
-		waypoints:   [  
-		   route
-	 
-	 ],
+		waypoints
+		,
 	 routeWhileDragging: true,
 	 show: false,
 	 geocoder: L.Control.Geocoder.nominatim()

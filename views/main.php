@@ -22,10 +22,11 @@
 
 <body>
 <?php
-if(isset($_POST['guest'])&& $_POST['guest']=="true"){
-  echo "holi juan";
-}else{
-  echo "ya estoy dormido";
+session_start();
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+  $ruta = "../public/nav.html";
+}else {
+  $ruta = "../public/navGuest.html";
 }
 ?>    
     
@@ -79,7 +80,8 @@ if(isset($_POST['guest'])&& $_POST['guest']=="true"){
 
  <script>
     $(function(){
-      $("#nav-placeholder").load("../public/nav.html");
+      var ruta = "<?php echo $ruta; ?>"
+      $("#nav-placeholder").load(ruta);
     });
     
     </script>
