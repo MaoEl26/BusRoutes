@@ -32,19 +32,19 @@
      <div class="container" style="width: 500px">
     <form action="/modifyUser" method="POST" >
           <div class="form-label-group" >
-              <input type="text" name="inputName" id = "inputName" class="form-control" placeholder="Nombre" value= <%= name%>   autofocus required>
+              <input type="text" name="inputName" id = "inputName" class="form-control" placeholder="Nombre" autofocus required>
               <label for="inputName">Nombre</label>
           </div>
           <div class="form-label-group" >
-              <input type="text" name="inputLastName1" id="inputLastName1" class="form-control" placeholder="Apellido 1" value= <%= lastname1%> required>
+              <input type="text" name="inputLastName1" id="inputLastName1" class="form-control" placeholder="Apellido 1" required>
               <label for="inputLastName1">Apellido 1</label>
           </div>
           <div class="form-label-group" >
-              <input type="text" name="inputLastName2" id="inputLastName2" class="form-control" placeholder="Apellido 2" value= <%= lastname2%> required>
+              <input type="text" name="inputLastName2" id="inputLastName2" class="form-control" placeholder="Apellido 2" required>
               <label for="inputLastName2">Apellido 2</label>
           </div>
           <div class="form-label-group" >
-              <input type="text" name="inputEmail" id="inputEmail" class="form-control" placeholder="Correo" value= <%= email%> required>
+              <input type="text" name="inputEmail" id="inputEmail" class="form-control" placeholder="Correo"  required>
               <label for="inputEmail">Correo</label>
           </div>
   
