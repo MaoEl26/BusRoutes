@@ -23,9 +23,9 @@
 <body>
 <?php
 if(isset($_POST['guest'])&& $_POST['guest']=="true"){
-  echo "holi juan";
+  echo "";
 }else{
-  echo "ya estoy dormido";
+  echo "";
 }
 ?>    
     
