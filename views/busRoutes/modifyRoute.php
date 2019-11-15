@@ -36,7 +36,7 @@
     <br>
     <h3 class="login-heading mb-4" style="text-align: center; ">Modificar Ruta</h3>
      <div class="container-fluid" style="width: 900px">
-    <form action="/modifyRoute" method="POST" >
+    <form action="../../controller/modifyRoute.php" method="POST" >
           <div class="form-group" >
               <label for="inputCompany">Seleccione la empresa</label>
               <select name="inputCompany" id="inputCompany" class="form-control">
