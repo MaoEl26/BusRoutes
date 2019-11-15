@@ -45,10 +45,11 @@
                 <input type="password" name="inputPasswordConfirm" id="inputPasswordConfirm" class="form-control" placeholder="Confirmación Contraseña" required>
                 <label for="inputPasswordConfirm">Confirmación Contraseña</label>
             </div>
-  
-  
-          <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Guardar</button>
-          <span class="help-block"><?php echo $confirm_pass; ?></span>
+
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Guardar</button>
+
+            </div>
+          
             <div class="text-center">
               
       </form>
