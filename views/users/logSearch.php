@@ -80,7 +80,7 @@
       $.ajax({
         url: '../../controller/getLog.php',
         type: "POST",
-       // dataType: 'json',
+        dataType: 'json',
         data: {
           getLogInfo: "true",
           startDate: selectedOptionStart,
