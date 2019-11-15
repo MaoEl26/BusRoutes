@@ -54,13 +54,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         mysqli_stmt_close($stmt);
                         // Redirect user to welcome page
                         header('Location: ../views/main.html');
- 
+
+                        //------Crear registro en el log--------------------------------------- 
+
+                        // Prepare an insert statement
+                        $sql = "INSERT INTO `RXWuaQvtL6`.`Log`(`username`,`accion`,`fechaHora`) VALUES (?,?,CURRENT_TIMESTAMP);";
+
+                        if ($stmt = mysqli_prepare($link, $sql)) {
+                            // Bind variables to the prepared statement as parameters
+                            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_accion);
+
+                            // Set parameters
+                            $param_username = $_SESSION["username"];
+                            $param_accion = "Inicio de Sesión";
+                            
+                            // Attempt to execute the prepared statement
+                            if (mysqli_stmt_execute($stmt)) {
+                                // Redirect to login page                
+                                //header('Location: ../views/main.html');
+                                echo "Log realizado";
+                            } else {
+                                echo "Algo salió mal. No se pudo realizar el registro en el log.";
+                            }
+                                            // Close statement
+                            mysqli_stmt_close($stmt);
+                        }else{
+                            // Aqui se debe hacer un redirect al formulario de registro
+                            // que indique los errores ya sea del password, username,
+                            // o correo.
+                        }
+
+                        //------Termina Registro de Log--------------------------------------- 
 
                     } else{
                         // Display an error message if password is not valid
                         $password_err = "La contraseña no es válida.";
                         echo "La contraseña no es válida.";
-                }
+                    }
                 }
                 else{
                 // Display an error message if username doesn't exist
@@ -70,7 +100,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else{
             echo "Algo salió mal. Intentelo de nuevo.";
             
-            }
+         }
     }
     
     
@@ -81,5 +111,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 // Close connection
     mysqli_close($link);
 
+    function debug_to_console($data) {
+        $output = $data;
+        if (is_array($output))
+            $output = implode(',', $output);
+    
+        echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+    }
 
 ?>
