@@ -80,7 +80,7 @@
       $.ajax({
         url: '../../controller/getLog.php',
         type: "POST",
-        dataType: 'json',
+       // dataType: 'json',
         data: {
           getLogInfo: "true",
           startDate: selectedOptionStart,
@@ -92,7 +92,6 @@
           var salida = '<table class="table table-striped" id="tableLog"><thead><tr>'+
           '<th>Usuario</th><th>Acción</th><th>Fecha y Hora</th></tr></thead><tbody>';                   
           $("#tableLog").html("");
-          console.log(salida);
           for(var i = 0; i < result.length; i++) {
                 salida += '<tr><td>'+result[i][0]+'</td>';
                 salida += '<td>'+result[i][1]+'</td>';
