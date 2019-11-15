@@ -92,13 +92,12 @@
           <div>
                 <h4 class="login-heading mb-2" style="text-align: center;">Ruta del Viaje</h4>
                 <div class="form-label-group" >
-                    <label for="inputDireccionMarcador">Mapa con Ruta</label>
-                    <div id="mapid" class="container" style="height: 700px; width: 650px ">
+                    <div id="mapid" class="container-fluid" style="height: 700px; width: 700px ">
                 
                     </div>
                     <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2" type="Button" onclick="getCoordinates()" >Guardar Mapa</button>
-                <input type="text" name="lat" id="lat" class="form-control" readonly>
-                <input type="text" name="lng" id="lng" class="form-control" readonly>
+                <input type="hidden" name="lat" id="lat" class="form-control" readonly>
+                <input type="hidden" name="lng" id="lng" class="form-control" readonly>
                 </div>
           </div>
           <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" value= "save">Guardar</button>
@@ -168,6 +167,7 @@
           document.getElementById("lng").value = result[7];
           document.getElementById("inputHoraInicio").value = result[8];
           document.getElementById("inputHoraFinal").value = result[9];
+          printCoordinates();
         },
         error: function(request, status, error) {
           alert('Ha surgido un error procesando su petición.');
