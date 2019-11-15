@@ -31,7 +31,7 @@
     <h3 class="login-heading mb-4" style="text-align: center; ">Cambiar Contraseña</h3>
      <div class="container" style="width: 500px">
     
-      <form action="../controller/cambioContraseña.php" method="POST"></form>
+        <form action="/BusRoutes/controller/modifyPass.php" method="POST">
         <div class="form-label-group">
                 <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Contraseña Actual" required>
                 <label for="inputPassword">Contraseña Actual</label>
@@ -48,6 +48,7 @@
   
   
           <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Guardar</button>
+          <span class="help-block"><?php echo $confirm_pass; ?></span>
             <div class="text-center">
               
       </form>
