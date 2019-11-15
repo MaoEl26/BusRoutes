@@ -14,7 +14,8 @@ L.tileLayer('http://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={a
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 	maxZoom: 18,
 	id: 'mapbox.streets',
-    accessToken: 'pk.eyJ1IjoidmFyZGllOTUiLCJhIjoiY2syODltdHZ1MG5hcjNobzF4aWswcGR2bCJ9.-b-fXBLHqS5U7hW0TjdGCg'
+	accessToken: 'pk.eyJ1IjoidmFyZGllOTUiLCJhIjoiY2syODltdHZ1MG5hcjNobzF4aWswcGR2bCJ9.-b-fXBLHqS5U7hW0TjdGCg',
+	serviceurl:"/router.project-osrm.org/viaroute"
     
 }).addTo(mymap);
 
@@ -57,6 +58,29 @@ function getCoordinates(){
 	document.getElementById("lat").value = lat; 
 	document.getElementById("lng").value = lng;
 	
+	
+
+}
+
+function printCoordinates(){
+	var lat = document.getElementById("lat").value;
+	var lng = document.getElementById("lng").value;
+	var latArray = lat.split(",");
+	var lngArray = lng.split(",");
+	route=[];
+	for (var i=0; i < latArray.length-1;i++){
+		route.push('L.latLng('+parseFloat(latArray[i]) +', '+ parseFloat(lngArray[i])+') ');
+	}
+	console.log(route);
+	routeControl = L.Routing.control({
+		waypoints:   [  
+		   route
+	 
+	 ],
+	 routeWhileDragging: true,
+	 show: false,
+	 geocoder: L.Control.Geocoder.nominatim()
+	 }).addTo(mymap);
 	
 
 }
