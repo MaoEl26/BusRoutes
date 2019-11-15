@@ -21,7 +21,13 @@
 </head>
 
 <body>
-    
+<?php
+if(isset($_POST['guest'])&& $_POST['guest']=="true"){
+  echo "holi juan";
+}else{
+  echo "ya estoy dormido";
+}
+?>    
     
     <div id="nav-placeholder">
 
@@ -75,6 +81,7 @@
     $(function(){
       $("#nav-placeholder").load("../public/nav.html");
     });
+    
     </script>
 
 </body>

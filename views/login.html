@@ -12,6 +12,7 @@
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -41,7 +42,7 @@
                       <div class="text-center">
                         <a class="small" href="./register.html">Registro   |</a>
                         <a class="small" href="./cambioContraseña.html">¿Olvidó Contraseña?   |</a>
-                        <a class="small" href="./main.html">Ingresar como Invitado</a>
+                        <a class="small" href="javascript:setGuest()" id="guest" name="guest">Ingresar como Invitado</a>
                       </div>
                     </form>
                   </div>
@@ -51,5 +52,26 @@
           </div>
         </div>
       </div>
+      <script>     
+      function setGuest(){
+        //window.location.href = './main.php';       
+        //e.preventDefault       
+        $.ajax({         
+          url: '/BusRoutes/views/main.php',         
+          type: "POST",         
+          dataType: 'json',         
+          data: {           
+            guest: "true"         
+          },         
+          success: function () {           
+            alert("SI");         
+          },       
+          error: function (request, status, error) {           
+            alert('Ha surgido un error procesando su petición.');
+            alert(error);         
+          }      
+        });     
+      };   
+    </script>
 </body>
 </html>
