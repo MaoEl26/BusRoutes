@@ -20,7 +20,7 @@ if (isset($_POST['getCompanyInfo'])) {
 
 function getRoutes($id, $link)
 {
-    //require_once "../../controller/connection.php";
+    require_once "../../controller/connection.php";
     $sql = "SELECT numroute,description,ticketCost,durationtime,
     disability,frecuency,latitude,longitude,starttime,finishtime 
     FROM Route WHERE numroute = " . "$id";

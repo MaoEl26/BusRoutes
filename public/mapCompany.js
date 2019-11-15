@@ -1,5 +1,3 @@
-
-
 var coord ;
 var lat ;
 var lng ;
@@ -17,9 +15,6 @@ L.tileLayer('http://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={a
     accessToken: 'pk.eyJ1IjoidmFyZGllOTUiLCJhIjoiY2syODltdHZ1MG5hcjNobzF4aWswcGR2bCJ9.-b-fXBLHqS5U7hW0TjdGCg'
     
 }).addTo(mymap);
-
-
-
 
   function createButton(label, container) {
     var btn = L.DomUtil.create('button', '', container);
