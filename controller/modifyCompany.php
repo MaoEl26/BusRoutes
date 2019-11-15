@@ -58,9 +58,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("Location: ../views/companies/modify_Company.php");
 
-                 //------Crear registro en el log--------------------------------------- 
+                //------Crear registro en el log--------------------------------------- 
 
                         // Prepare an insert statement
                         $sql = "INSERT INTO `RXWuaQvtL6`.`Log`(`username`,`accion`,`fechaHora`) VALUES (?,?,CURRENT_TIMESTAMP);";
@@ -90,7 +89,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             // o correo.
                         }
 
-                        //------Termina Registro de Log--------------------------------------- 
+                        //------Termina Registro de Log---------------------------------------
+                header("Location: ../views/companies/modify_Company.php");
+
+                  
                 
             } else{
                 echo "Algo salió mal. Intentelo de nuevo.";
