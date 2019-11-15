@@ -8,16 +8,13 @@ if (isset($_POST['getCompanyInfo'])) {
         define('DB_USERNAME', 'RXWuaQvtL6');
         define('DB_PASSWORD', 'w3tA3C2xKM');
         define('DB_NAME', 'RXWuaQvtL6');
-
         /* Attempt to connect to MySQL database */
         $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-
         $routeInfo = getRoutes($_POST['company'], $link);        
         
         echo json_encode($routeInfo);
     }
 }
-
 function getRoutes($id, $link)
 {
     //require_once "../../controller/connection.php";
@@ -40,7 +37,6 @@ function getRoutes($id, $link)
         }
         return $temporal;
     }
-
     mysqli_close($link);
 }
 ?>

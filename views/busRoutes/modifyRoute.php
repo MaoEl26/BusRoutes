@@ -36,7 +36,7 @@
     <br>
     <h3 class="login-heading mb-4" style="text-align: center; ">Modificar Ruta</h3>
      <div class="container-fluid" style="width: 900px">
-    <form action="../../controller/modifyRoute.php" method="POST" >
+    <form action="/modifyRoute" method="POST" >
           <div class="form-group" >
               <label for="inputCompany">Seleccione la empresa</label>
               <select name="inputCompany" id="inputCompany" class="form-control">
@@ -111,7 +111,6 @@
     $(function(){
       $("#nav-placeholder").load("../../public/nav.html");
     });
-
     $('#inputCompany').on('change', function(e) {
       
       var select = document.getElementById('inputCompany');
@@ -141,7 +140,6 @@
         }
       });
     });
-
     $('#inputRoute').on('change', function(e) {
       
       var select = document.getElementById('inputRoute');
@@ -175,7 +173,6 @@
         }
       });
     });
-
     </script>
   
     
