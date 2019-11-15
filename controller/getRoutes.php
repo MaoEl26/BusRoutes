@@ -12,7 +12,7 @@ if (isset($_POST['getCompanyInfo'])) {
         /* Attempt to connect to MySQL database */
         $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-        $routeInfo = getRoutes($_POST['startDate'],$_POST['endDate'], $link);        
+        $routeInfo = getRoutes($_POST['company'], $link);        
         
         echo json_encode($routeInfo);
     }
