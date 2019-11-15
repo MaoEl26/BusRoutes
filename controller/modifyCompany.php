@@ -57,9 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_name = $nombre;
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                // Redirect to login page
-                header("Location: ../views/companies/modify_Company.php");
-
+                
                  //------Crear registro en el log--------------------------------------- 
 
                         // Prepare an insert statement
@@ -91,7 +89,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
 
                         //------Termina Registro de Log--------------------------------------- 
-                
+                        // Redirect to login page
+                        header("Location: ../views/companies/modify_Company.php");
             } else{
                 echo "Algo salió mal. Intentelo de nuevo.";
                 mysqli_stmt_close($stmt);

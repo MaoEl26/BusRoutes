@@ -10,7 +10,7 @@ $ruta_err  = "";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     
     
-
+    $ruta = trim($_POST["inputRoute"]);
     $descrip = trim($_POST["inputDescripcion"]);
     $ticket = trim($_POST["inputCost"]);
     $inicio = trim($_POST["inputHoraInicio"]);
@@ -20,17 +20,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $silla = $_POST["inputDiscapacidad"];
     $long = trim($_POST["lng"]);
     $lat = trim($_POST["lat"]);
-    $idCompany = trim($_POST["inputCompany"]);
 
     if(empty($ruta_err))
     {   
-        $sql = "UPDATE Route set numroute = ?,description = ?,ticketCost = ?,durationtime = ?,disability = ?,frecuency = ?,latitude = ?,longitude = ?,starttime = ?,finishtime = ?";
+        $sql = "UPDATE Route set description = ?,ticketCost = ?,durationtime = ?,disability = ?,frecuency = ?,latitude = ?,longitude = ?,starttime = ?,finishtime = ? where numroute = ?";
+        
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssssisssss", $param_ruta,$param_descrip,$param_ticket,$param_time,$param_silla,$param_freq,$param_lat,$param_long,$param_inicio,$param_fin);
+            mysqli_stmt_bind_param($stmt, "sssissssss", $param_descrip,$param_ticket,$param_time,$param_silla,$param_freq,$param_lat,$param_long,$param_inicio,$param_fin,$param_ruta);
             
             // Set parameters
-            //$param_id = 2;
+            //$param_id = 2; 
             $param_ruta = $ruta;
             $param_descrip = $descrip;
             $param_ticket = $ticket;
@@ -41,7 +41,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_long = $long;
             $param_inicio = $inicio;
             $param_fin = $fin;
-            $param_company = $idCompany;
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){

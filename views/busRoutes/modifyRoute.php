@@ -60,10 +60,6 @@
               </select>
           </div>
           <div class="form-label-group" >
-              <input type="text" name="inputNumRuta" id = "inputNumRuta" class="form-control" placeholder="Numero Ruta" >
-              <label for="inputNumRuta">Número Ruta</label>
-          </div>
-          <div class="form-label-group" >
               <input type="text" name="inputDescripcion" id="inputDescripcion" class="form-control" placeholder="Descripción" required>
               <label for="inputDescripcion">Descripción</label>
           </div>
@@ -91,7 +87,7 @@
                 <label for="inputDuracion">Duración del viaje</label>
         </div>
         <div class="form-label-group">
-                <input type="checkbox" name="inputDiscapacidad" id="inputDiscapacidad" class="" placeholder="Discapacidad" required>
+                <input type="checkbox" name="inputDiscapacidad" id="inputDiscapacidad" class="" placeholder="Discapacidad">
                 <label for="inputDiscapacidad" class="login-heading mb-2"><h6>Posee transporte para personas con Discapacidad </h6></label>
         </div>
           <div>
@@ -160,7 +156,6 @@
           company: selectedOption.value
         },
         success: function(result) {
-          document.getElementById("inputNumRuta").value = result[0];
           document.getElementById("inputDescripcion").value = result[1];
           document.getElementById("inputCost").value = result[2];
           document.getElementById("inputDuracion").value = result[3];
