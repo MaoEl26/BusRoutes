@@ -1,8 +1,8 @@
 <?php
-if (isset($_POST['getCompanyInfo'])) {
-    $getCompanyInfo = $_POST['getCompanyInfo'];
+if (isset($_POST['getLogInfo'])) {
+    $getLogInfo = $_POST['getLogInfo'];
     
-    if ($getCompanyInfo == "true") {
+    if ($getLogInfo == "true") {
         // some action goes here under php        
         define('DB_SERVER', 'remotemysql.com');
         define('DB_USERNAME', 'RXWuaQvtL6');
@@ -12,7 +12,7 @@ if (isset($_POST['getCompanyInfo'])) {
         /* Attempt to connect to MySQL database */
         $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-        $routeInfo = getRoutes($_POST['startDate'],$_POST['endDate'], $link);        
+        $logInfo = getRoutes($_POST['company'], $link);        
         
         echo json_encode($routeInfo);
     }
@@ -21,13 +21,19 @@ if (isset($_POST['getCompanyInfo'])) {
 function getRoutes($id, $link)
 {
     //require_once "../../controller/connection.php";
-    $sql = "SELECT numroute FROM Route WHERE idCompany = " . "$id";
+    $sql = "Select username,accion,fechaHora from log where fechaHora between"."$start". "And" ."$end";
+    //$sql = "SELECT numroute FROM Route WHERE idCompany = " . "$id";
     $temporal = array();
+    $array = array();
     if ($result = mysqli_query($link, $sql)) {
         while ($row = mysqli_fetch_assoc($result)) {
-            array_push($temporal, $row['numroute']);
+            array_push($temporal, $row['username']);
+            array_push($temporal, $row['acccion']);
+            array_push($temporal, $row['fechaHora']);
+            array_push($array, $temporal);
+            $temporal = array();
         }
-        return $temporal;
+        return $array;
     }
 
     mysqli_close($link);
