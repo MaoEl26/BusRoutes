@@ -60,21 +60,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script>
     $('#guest').click(function (e) {
-      //window.location.href = '../views/main.php';
-      e.preventDefault
-      $.ajax({
-        url: 'main.php',
-        data: {
-          guest: 'true'
-        },
-        type: 'post',
-        success: function (result) {
-          alert("siii");
-        },
-        error: function (request, status, error) {
-          alert('Ha surgido un error procesando su petición.');
-        }
-      });
+      window.location.href = '../views/main.php';
     });      
 
   </script>
