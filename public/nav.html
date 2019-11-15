@@ -40,7 +40,7 @@
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Deshabilitar Cuenta</a>
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Deshabilitar Cuenta</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/BusRoutes/controller/logout.php">Cerrar Sesión</a>
@@ -51,3 +51,27 @@
             </ul>
         </div>
       </nav>
+
+      <!-- Modal -->
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Confirmación</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p>¿Realmente desea deshabilitar su cuenta?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <form action="../controller/disableAccount.php" method="POST">      
+                <button type="submit" class="btn btn-primary" id="btnDeshabilitar" name="btnDeshabilitar">Deshabilitar</button>
+              </form>
+            </div>
+          </div>
+      
+        </div>
+      </div>
