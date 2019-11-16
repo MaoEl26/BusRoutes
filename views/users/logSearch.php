@@ -55,11 +55,6 @@
                     <th>Fecha y Hora</th>
                 </tr>
             </thead>
-            <tbody>
-                <td>corolla78</td>
-                <td>Modificacion de Ruta</td>
-                <td>14/11/2019</td>
-            </tbody>
         </table>
     </div> 
     <script>
