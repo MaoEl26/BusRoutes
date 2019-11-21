@@ -91,7 +91,7 @@
                 <label for="inputDuracion">Duración del viaje</label>
         </div>
         <div class="form-label-group">
-                <input type="checkbox" name="inputDiscapacidad" id="inputDiscapacidad" class="" placeholder="Discapacidad">
+                <input type="checkbox" name="inputDiscapacidad" id="inputDiscapacidad" value="1" placeholder="Discapacidad">
                 <label for="inputDiscapacidad" class="login-heading mb-2"><h6>Posee transporte para personas con Discapacidad </h6></label>
         </div>
           <div>
