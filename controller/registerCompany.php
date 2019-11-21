@@ -1,5 +1,6 @@
 <?php
 // Include config file
+session_start();
 require_once "./connection.php";
 // Define variables and initialize with empty values
 $nombre = $numTelefono = $origen = $destino = $correo = $numTelefono = $direccion = $dias = "" ;
