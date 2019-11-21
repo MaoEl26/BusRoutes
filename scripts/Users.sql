@@ -29,24 +29,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `Users` (
-  `username` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(10) COLLATE utf8_unicode_ci NOT NULL primary key,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lastname1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lastname2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `Users`
---
-ALTER TABLE `Users`
-  ADD PRIMARY KEY (`username`);
-COMMIT;
 
 -- --------------------------------------------------------
 
@@ -55,7 +44,7 @@ COMMIT;
 --
 
 CREATE TABLE `Company`(
-  `idCompany` int COLLATE utf8_unicode_ci NOT NULL AUTO_INCREMENT,
+  `idCompany` int COLLATE utf8_unicode_ci NOT NULL AUTO_INCREMENT primary key,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `phone` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL,
   `sourcezone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -67,8 +56,7 @@ CREATE TABLE `Company`(
   `longitude` VARCHAR(255) COLLATE utf8_unicode_ci Not NULL,
   `daysattention` VARCHAR(255) COLLATE utf8_unicode_ci Not NULL, -- serializado
   `openingtime` VARCHAR(55) COLLATE utf8_unicode_ci Not NULL,
-  `closingtime` VARCHAR(255) COLLATE utf8_unicode_ci Not NULL,
-  PRIMARY KEY(id)
+  `closingtime` VARCHAR(255) COLLATE utf8_unicode_ci Not NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -78,7 +66,7 @@ CREATE TABLE `Company`(
 --
 
 CREATE TABLE `Route`(
-  `numroute` int COLLATE utf8_unicode_ci NOT NULL,
+  `numroute` int COLLATE utf8_unicode_ci NOT NULL primary key,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `ticketCost` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL,
   `durationtime` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -87,9 +75,8 @@ CREATE TABLE `Route`(
   `latitude` VARCHAR(255) COLLATE utf8_unicode_ci Not NULL, -- serializado 
   `longitude` VARCHAR(255) COLLATE utf8_unicode_ci Not NULL, -- serializado
   `starttime` VARCHAR(55) COLLATE utf8_unicode_ci Not NULL,
-  `finishtime` VARCHAR(255) COLLATE utf8_unicode_ci Not NULL
+  `finishtime` VARCHAR(255) COLLATE utf8_unicode_ci Not NULL,
   `idCompany` int,
-  PRIMARY KEY (`numroute`),
   CONSTRAINT FK_CompanyRoute FOREIGN KEY (`idCompany`)
   REFERENCES Company(`idCompany`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
