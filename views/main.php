@@ -41,8 +41,8 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         <br>
         <br>
 
-      <div class="input-group mb-3">
-          <div class="input-group-prepend">
+      
+          <!--<div class="input-group-prepend">
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Buscar por </button>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="#">Empresa</a>
@@ -50,12 +50,22 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
               <a class="dropdown-item" href="#">DestinoFinal</a>
               <div role="separator" class="dropdown-divider"></div>
             </div>
-          </div>
-          <input type="text" class="form-control" aria-label="Text input with dropdown button">
+          </div>-->
+          <form action="javascript:getRoutes();" method="POST" >
+          <div class="form-label-group">
+                <input type="checkbox" name="inputEmpresa" id="inputEmpresa" class="" placeholder="Discapacidad">
+                <label for="inputDiscapacidad" class="login-heading mb-2"><h6>Buscar por Empresa</h6></label>
+                <input type="checkbox" name="inputDestino" id="inputDestino" class="" placeholder="Discapacidad">
+                <label for="inputDiscapacidad" class="login-heading mb-2"><h6>Buscar por Destino</h6></label>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" name="inputNombre" id="inputNombre" aria-label="Text input with dropdown button">
           <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="button">Consultar</button>
             </div>
         </div>
+        <input type="hidden" name="lat" id="lat" class="form-control" readonly>
+                <input type="hidden" name="lng" id="lng" class="form-control" readonly>
       
      
       <br>
@@ -75,13 +85,49 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
  </div>
  <br>
  <br>
+ </form>
  <script src="../public/mapRoutes.js"></script>
+
 
 
  <script>
     $(function(){
       var ruta = "<?php echo $ruta; ?>"
       $("#nav-placeholder").load(ruta);
+    });
+
+    function getRoutes(){
+      
+      var empresa = document.getElementById('inputEmpresa').checked;
+      var destino = document.getElementById('inputDestino').checked;
+      var nombre = document.getElementById('inputNombre').text;
+      console.log(empresa);
+        console.log(nombre);
+        console.log(destino);
+      //alert(selectedOption.value);               
+      e.preventDefault // prevent form submission
+      $.ajax({
+        url: '../../controller/requests.php',
+        type: "POST",
+        dataType: 'json',
+        data: {
+          getCompanyInfo: "true",
+          company: empresa.value,
+          destiny: destino.value,
+          name: nombre.value
+        },
+        success: function(result) {
+          console.log(result[0]);
+          console.log(result[1]);
+          document.getElementById("lat").value = result[0];
+          document.getElementById("lng").value = result[1];
+          printCoordinates();
+        },
+        error: function(request, status, error) {
+          alert('Ha surgido un error procesando su petición.');
+          alert(error);
+        }
+      });
     });
     
     </script>

@@ -69,7 +69,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("location: ../views/busRoutes/registerRoute.php");
                 //------Crear registro en el log--------------------------------------- 
 
                         // Prepare an insert statement
@@ -99,7 +98,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             // o correo.
                         }
 
-                        //------Termina Registro de Log--------------------------------------- 
+                        //------Termina Registro de Log---------------------------------------
+                header("location: ../views/busRoutes/registerRoute.php");
+                 
             } else{
                 echo "Algo salió mal. Intentelo de nuevo.";
             }

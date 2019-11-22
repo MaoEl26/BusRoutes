@@ -5,6 +5,12 @@ var lat = "";
 var lng = "";
 var routeArray;
 var waypoints =[];
+var colors=[];
+colors.push("red");
+colors.push("green");
+colors.push("blue");
+colors.push("purple");
+colors.push("pink");
 var mymap = L.map('mapid', {zoomControl:false} ).setView([9.934739, -84.087502], 12);
 L.control.zoom({
     position:'topright'
@@ -30,6 +36,8 @@ var routeControl = L.Routing.control({
 
   }).addTo(mymap);
 
+
+
   function createButton(label, container) {
     var btn = L.DomUtil.create('button', '', container);
     btn.setAttribute('type', 'button');
@@ -41,6 +49,33 @@ mymap.on('click', function(e) {
 	
 	     
 });
+
+function showRoutes(puntos){
+
+	var lat = document.getElementById("lat").value;
+	var lng = document.getElementById("lng").value;
+	var latArray = lat.split(",");
+	var lngArray = lng.split(",");
+	waypoints= [];
+	route='';
+	for (var i=0; i < latArray.length -1  ;i++){
+		waypoints.push(L.latLng(latArray[i],lngArray[i]));
+	}
+	var cont = 0;
+	puntos.forEach(element => {
+		routeControl = L.Routing.control({
+			waypoints
+			,
+		 routeWhileDragging: true,
+		 show: false,
+		 geocoder: L.Control.Geocoder.nominatim(),
+		 lineOptions: {
+			styles: [{color: colors[cont], opacity: 1, weight: 5}]
+		 }
+		 }).addTo(mymap);
+		 cont++;
+	});
+}
 
 function getCoordinates(){
 	lat = "";

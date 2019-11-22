@@ -121,8 +121,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                // Redirect to login page
-                header("Location: ../views/companies/registerCompany.html");
                 //------Crear registro en el log--------------------------------------- 
 
                         // Prepare an insert statement
@@ -153,6 +151,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
 
                         //------Termina Registro de Log--------------------------------------- 
+                // Redirect to login page
+                header("Location: ../views/companies/registerCompany.html");
+                
             } else{
                 echo "Algo salió mal. Intentelo de nuevo.";
             }
